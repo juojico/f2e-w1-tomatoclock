@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/F2E-w1-TomatoClock/static/css/main.8ecdfd3d.chunk.css",
+    "main.js": "/F2E-w1-TomatoClock/static/js/main.7fc2c2ae.chunk.js",
+    "main.js.map": "/F2E-w1-TomatoClock/static/js/main.7fc2c2ae.chunk.js.map",
+    "runtime~main.js": "/F2E-w1-TomatoClock/static/js/runtime~main.3c10f2af.js",
+    "runtime~main.js.map": "/F2E-w1-TomatoClock/static/js/runtime~main.3c10f2af.js.map",
+    "static/js/2.4e054250.chunk.js": "/F2E-w1-TomatoClock/static/js/2.4e054250.chunk.js",
+    "static/js/2.4e054250.chunk.js.map": "/F2E-w1-TomatoClock/static/js/2.4e054250.chunk.js.map",
+    "index.html": "/F2E-w1-TomatoClock/index.html",
+    "precache-manifest.135d04dc83def4e80404a540b7779f31.js": "/F2E-w1-TomatoClock/precache-manifest.135d04dc83def4e80404a540b7779f31.js",
+    "service-worker.js": "/F2E-w1-TomatoClock/service-worker.js",
+    "static/css/main.8ecdfd3d.chunk.css.map": "/F2E-w1-TomatoClock/static/css/main.8ecdfd3d.chunk.css.map"
+  }
+}
