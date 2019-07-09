@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Tomato className="App-logo" />
+        <Tomato />
         <Timer />
       </header>
     </div>
