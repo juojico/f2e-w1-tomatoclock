@@ -1,5 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const tomatoRoll = keyframes`
+  to {
+    transform: scale(1.05, 0.95);
+  }
+`;
 
 const TomatoBody = styled.div`
   position: relative;
@@ -9,7 +15,7 @@ const TomatoBody = styled.div`
   border: 10px solid #e04540;
   border-width: 4px 8px 10px 4px;
   border-radius: 90% 100%;
-  animation: tomatoRoll 1s alternate infinite;
+  animation: ${tomatoRoll} 1s alternate infinite;
   ::before {
     content: "";
     position: absolute;
