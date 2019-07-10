@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/f2e-w1-tomatoclock/static/css/main.8ecdfd3d.chunk.css",
-    "main.js": "/f2e-w1-tomatoclock/static/js/main.8186dcc2.chunk.js",
-    "main.js.map": "/f2e-w1-tomatoclock/static/js/main.8186dcc2.chunk.js.map",
+    "main.css": "/f2e-w1-tomatoclock/static/css/main.52b19be1.chunk.css",
+    "main.js": "/f2e-w1-tomatoclock/static/js/main.4dd5a750.chunk.js",
+    "main.js.map": "/f2e-w1-tomatoclock/static/js/main.4dd5a750.chunk.js.map",
     "runtime~main.js": "/f2e-w1-tomatoclock/static/js/runtime~main.9530c7bb.js",
     "runtime~main.js.map": "/f2e-w1-tomatoclock/static/js/runtime~main.9530c7bb.js.map",
-    "static/js/2.640a3ad8.chunk.js": "/f2e-w1-tomatoclock/static/js/2.640a3ad8.chunk.js",
-    "static/js/2.640a3ad8.chunk.js.map": "/f2e-w1-tomatoclock/static/js/2.640a3ad8.chunk.js.map",
+    "static/js/2.0616ccad.chunk.js": "/f2e-w1-tomatoclock/static/js/2.0616ccad.chunk.js",
+    "static/js/2.0616ccad.chunk.js.map": "/f2e-w1-tomatoclock/static/js/2.0616ccad.chunk.js.map",
     "index.html": "/f2e-w1-tomatoclock/index.html",
-    "precache-manifest.fbd88dbe9679243468254a3badcc7ab5.js": "/f2e-w1-tomatoclock/precache-manifest.fbd88dbe9679243468254a3badcc7ab5.js",
+    "precache-manifest.b5e558887e52aed2a0f89c6152185c03.js": "/f2e-w1-tomatoclock/precache-manifest.b5e558887e52aed2a0f89c6152185c03.js",
     "service-worker.js": "/f2e-w1-tomatoclock/service-worker.js",
-    "static/css/main.8ecdfd3d.chunk.css.map": "/f2e-w1-tomatoclock/static/css/main.8ecdfd3d.chunk.css.map"
+    "static/css/main.52b19be1.chunk.css.map": "/f2e-w1-tomatoclock/static/css/main.52b19be1.chunk.css.map"
   }
 }
