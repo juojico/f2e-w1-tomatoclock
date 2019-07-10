@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f158ce2b2e48a26dfabc132403568d22",
+    "revision": "6cc3ebade6b61396d078a23b15f82776",
     "url": "/f2e-w1-tomatoclock/index.html"
   },
   {
-    "revision": "04f35d769f53141a90f2",
+    "revision": "f6979c18fbd4fe26df48",
     "url": "/f2e-w1-tomatoclock/static/css/main.52b19be1.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/f2e-w1-tomatoclock/static/js/2.0616ccad.chunk.js"
   },
   {
-    "revision": "04f35d769f53141a90f2",
-    "url": "/f2e-w1-tomatoclock/static/js/main.a3782387.chunk.js"
+    "revision": "f6979c18fbd4fe26df48",
+    "url": "/f2e-w1-tomatoclock/static/js/main.641bde51.chunk.js"
   },
   {
     "revision": "087080383a1f479fc96e",
