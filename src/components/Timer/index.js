@@ -35,24 +35,24 @@ class Timer extends React.PureComponent {
     };
   }
 
-  start = () => this.setState({ seconds: this.state.seconds - 1 })
+  start = () => this.state.seconds>0?this.setState({ seconds: this.state.seconds - 1 }):this.pause();
 
-  componentDidMount() {
+  play() {
     let intervalId = setInterval(this.start, 1000)
-    this.setState({ intervalId: intervalId, play: false })
+    this.setState({ intervalId: intervalId, play: true })
   }
 
-  componentWillUnmount() {
+  pause() {
     clearInterval(this.state.intervalId)
-    this.setState({ play: true })
+    this.setState({ play: false })
   }
 
   render() {
     return (
       <TimerWrapper>
         {minutes(this.state.seconds)}
-        <Button onClick={() => this.componentDidMount()} hidden={this.state.play ? false : true} >start</Button>
-        <Button onClick={() => this.componentWillUnmount()} hidden={this.state.play ? true : false} >stop</Button>
+        <Button onClick={() => this.play()} hidden={this.state.play ? true : false} >start</Button>
+        <Button onClick={() => this.pause()} hidden={this.state.play ? false : true} >stop</Button>
       </TimerWrapper>
     );
   }
