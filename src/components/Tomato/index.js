@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const tomatoRoll = keyframes`
   to {
@@ -17,14 +17,14 @@ const TomatoBody = styled.div`
   border-radius: 90% 100%;
   animation: ${tomatoRoll} 1s alternate infinite;
   ::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 8%;
     height: 9%;
     top: 20%;
     left: 12%;
     border-radius: 100%;
-    background-color: rgba(255,255,255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 `;
 

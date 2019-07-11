@@ -1,5 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { Button } from '../Buttons';
+import TestTool from '../../components/TestTool';
 
 const TimerWrapper = styled.h1`
   position: relative;
@@ -7,23 +9,10 @@ const TimerWrapper = styled.h1`
   color: #f05550;
 `;
 
-const Button = styled.button`
-  position: relative;
-  width: 300px;
-  background-color: #f05550;
-  border: 2px solid #e04540;
-  border-radius: 1em;
-  color: white;
-  font-size: 1em;
-  padding: .25em;
-  margin-top: .5em;
-  cursor: pointer;
-  :hover {
-    background-color: #ff6560;
-  }
-`;
-
-const minutes = seconds => Math.floor(seconds / 60) + ' : ' + (seconds % 60 < 10 ? '0' + seconds % 60 : seconds % 60);
+const minutes = seconds =>
+  Math.floor(seconds / 60) +
+  ' : ' +
+  (seconds % 60 < 10 ? '0' + (seconds % 60) : seconds % 60);
 
 class Timer extends React.PureComponent {
   constructor(props) {
@@ -35,26 +24,51 @@ class Timer extends React.PureComponent {
     };
   }
 
-  start = () => this.state.seconds>0?this.setState({ seconds: this.state.seconds - 1 }):this.pause();
+  start = () => {
+    this.state.seconds > 0
+      ? this.setState({ seconds: this.state.seconds - 1 })
+      : this.done();
+  };
+  done = () => {
+    this.pause();
+    alert('done')
+  };
 
   play() {
-    let intervalId = setInterval(this.start, 1000)
-    this.setState({ intervalId: intervalId, play: true })
+    let intervalId = setInterval(this.start, 1000);
+    this.setState({ intervalId: intervalId, play: true });
   }
 
   pause() {
-    clearInterval(this.state.intervalId)
-    this.setState({ play: false })
+    clearInterval(this.state.intervalId);
+    this.setState({ play: false });
   }
+  setSeconds = seconds => () => {
+    this.setState({ seconds });
+  };
 
   render() {
     return (
       <TimerWrapper>
+        <TestTool
+          onClick1={this.setSeconds(3)}
+          onClick2={this.setSeconds(1500)}
+        />
         {minutes(this.state.seconds)}
-        <Button onClick={() => this.play()} hidden={this.state.play ? true : false} >start</Button>
-        <Button onClick={() => this.pause()} hidden={this.state.play ? false : true} >stop</Button>
+        <Button
+          onClick={() => this.play()}
+          hidden={this.state.play ? true : false}
+        >
+          start
+        </Button>
+        <Button
+          onClick={() => this.pause()}
+          hidden={this.state.play ? false : true}
+        >
+          stop
+        </Button>
       </TimerWrapper>
     );
   }
-};
+}
 export default Timer;

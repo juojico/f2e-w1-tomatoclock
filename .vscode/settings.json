@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnPaste": false,
+  "editor.detectIndentation": false,
+  "javascript.preferences.quoteStyle": "single",
+  "prettier.singleQuote": true,
+  "git.ignoreLimitWarning": true,
+  "editor.renderWhitespace": "boundary"
+}
