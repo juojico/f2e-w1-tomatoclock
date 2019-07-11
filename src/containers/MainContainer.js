@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import Timer from '../components/Timer';
 import Tomato from '../components/Tomato';
 import TakeBreak from '../components/TakeBreak';
-import Timer from '../components/Timer';
+import MainMenu from '../components/MainMenu';
+import ChartContainer from '../containers/ChartContainer';
+import SettingContainer from '../containers/SettingContainer';
+import TodoListContainer from '../containers/TodoListContainer';
 
-const AppHeader = styled.div`
+const Container = styled.div`
    {
     background-color: #282c34;
     min-height: 100vh;
@@ -23,19 +27,55 @@ class MainContainer extends React.PureComponent {
     super(props);
     this.state = {
       takeBreak: false,
+      chartOpen: false,
+      todoOpen: false,
+      settingOpen: false
     };
   }
-  onFinish = () => {
+  onFinish = (working) => {
     console.log('Finish');
-    this.setState({takeBreak: true});
+    this.setState({ takeBreak: working });
   };
+  onMainMenuClick = (target) => {
+    switch (target) {
+      case 'chart':
+        return this.setState({
+          chartOpen: true,
+          todoOpen: false,
+          settingOpen: false
+        });
+      case 'todo':
+        return this.setState({
+          chartOpen: false,
+          todoOpen: true,
+          settingOpen: false
+        });
+      case 'setting':
+        return this.setState({
+          chartOpen: false,
+          todoOpen: false,
+          settingOpen: true
+        });
+      case 'close':
+        return this.setState({
+          chartOpen: false,
+          todoOpen: false,
+          settingOpen: false
+        });
+
+    }
+  }
   render() {
     return (
-      <AppHeader>
-        <Tomato hidden={this.state.takeBreak}/>
+      <Container>
+        <MainMenu onClick={this.onMainMenuClick} />
+        <Tomato hidden={this.state.takeBreak} />
         <TakeBreak hidden={!this.state.takeBreak} />
-        <Timer onFinish={this.onFinish} takeBreak={this.state.takeBreak} />
-      </AppHeader>
+        <Timer onFinish={this.onFinish} />
+        <TodoListContainer hidden={!this.state.todoOpen} />
+        <ChartContainer hidden={!this.state.chartOpen} />
+        <SettingContainer hidden={!this.state.settingOpen} />
+      </Container>
     );
   }
 }

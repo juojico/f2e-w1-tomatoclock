@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '../Buttons';
 import TestTool from '../../components/TestTool';
+import { Button } from '../Buttons';
 
 const TimerWrapper = styled.h1`
   position: relative;
@@ -20,21 +20,29 @@ class Timer extends React.PureComponent {
     this.state = {
       seconds: 1500,
       intervalId: '',
-      play: false
+      play: false,
+      takeBreak: false
     };
   }
 
   start = () => {
     this.state.seconds > 0
       ? this.setState({ seconds: this.state.seconds - 1 })
-      : this.done();
+      : this.state.takeBreak ? this.backWork() : this.done();
   };
   done = () => {
-    const {onFinish} =this.props;
+    const { onFinish } = this.props;
     this.pause();
-    onFinish();
+    onFinish(true);
     this.takeBreak();
   };
+
+  backWork() {
+    this.setState({ seconds: 1500, takeBreak: false })
+    this.pause();
+    const { onFinish } = this.props;
+    onFinish(false);
+  }
 
   play() {
     let intervalId = setInterval(this.start, 1000);
@@ -50,13 +58,12 @@ class Timer extends React.PureComponent {
   };
 
   takeBreak() {
-    this.setState({ seconds: 300 });
+    this.setState({ seconds: 300, takeBreak: true });
     console.log('takeBreak');
-    this.play('takeBreak');
+    this.play();
   }
 
   render() {
-    
     return (
       <TimerWrapper>
         <TestTool
