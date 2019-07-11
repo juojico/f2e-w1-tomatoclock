@@ -30,8 +30,10 @@ class Timer extends React.PureComponent {
       : this.done();
   };
   done = () => {
+    const {onFinish} =this.props;
     this.pause();
-    alert('done')
+    onFinish();
+    this.takeBreak();
   };
 
   play() {
@@ -47,7 +49,14 @@ class Timer extends React.PureComponent {
     this.setState({ seconds });
   };
 
+  takeBreak() {
+    this.setState({ seconds: 300 });
+    console.log('takeBreak');
+    this.play('takeBreak');
+  }
+
   render() {
+    
     return (
       <TimerWrapper>
         <TestTool
