@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/f2e-w1-tomatoclock/precache-manifest.399d57ddc8f48c4b7dd3c526cb889c06.js"
+  "/f2e-w1-tomatoclock/precache-manifest.d220f533d0f154c38350689ce19cb156.js"
 );
 
 self.addEventListener('message', (event) => {
