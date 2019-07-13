@@ -62,14 +62,15 @@ class MainContainer extends React.PureComponent {
           todoOpen: false,
           settingOpen: false
         });
-
+      default:
+        break;
     }
   }
   render() {
     return (
       <Container>
         <MainMenu onClick={this.onMainMenuClick} />
-        <Tomato hidden={this.state.takeBreak} />
+        <Tomato text={'task 1 textcontent'} hidden={this.state.takeBreak} />
         <TakeBreak hidden={!this.state.takeBreak} />
         <Timer onFinish={this.onFinish} />
         <TodoListContainer hidden={!this.state.todoOpen} />

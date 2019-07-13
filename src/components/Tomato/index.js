@@ -9,6 +9,9 @@ const tomatoRoll = keyframes`
 
 const TomatoBody = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 300px;
   height: 270px;
   background-color: #f05550;
@@ -63,7 +66,12 @@ const Leaves = styled.div`
   }
 `;
 
-const Tomato = ({ ...props }) => {
+const TaskNow = styled.div`
+  position: relative;
+  font-size: ${props=>props.textLen>20?'1em':'1.5em'};
+`;
+
+const Tomato = ({ text, ...props }) => {
   return (
     <TomatoBody {...props}>
       <Leaves />
@@ -71,6 +79,7 @@ const Tomato = ({ ...props }) => {
       <Leaves />
       <Leaves />
       <Leaves />
+      <TaskNow textLen={text.length}>{text}</TaskNow>
     </TomatoBody>
   );
 };

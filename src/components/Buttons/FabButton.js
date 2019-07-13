@@ -5,20 +5,20 @@ const ButtonBasic = styled.button`
   position: relative;
   background-color: #f05550;
   border: 2px solid #e04540;
-  border-radius: 1em;
+  border-radius: 100%;
   color: white;
-  font-size: 1rem;
-  padding: 0.25em;
-  margin-top: 0.5em;
+  font-size: ${props=>props.small?'.75em':'1em'};
+  padding: ${props=>props.small?'.75em':'1em'};
+  margin: 0.5em;
   cursor: pointer;
   :hover {
     background-color: #ff6560;
   }
 `;
 
-const FabButton = ({ children, onClick, hidden, ...props }) => {
+const FabButton = ({ children, onClick, hidden, small, ...props }) => {
   return (
-    <ButtonBasic onClick={onClick} hidden={hidden} {...props}>
+    <ButtonBasic onClick={onClick} hidden={hidden} small={small} {...props}>
       {children}
     </ButtonBasic>
   );

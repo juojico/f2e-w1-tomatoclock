@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import TestTool from '../../components/TestTool';
-import { Button } from '../Buttons';
+import { FabButton } from '../Buttons';
+import AniIcon from '../../components/Icons';
 
-const TimerWrapper = styled.h1`
+const TimerWrapper = styled.div`
   position: relative;
   width: 300px;
+  color: #f05550;
+`;
+
+const TimerClock = styled.h1`
+  position: relative;
+  width: 100%;
   color: #f05550;
 `;
 
@@ -21,7 +27,10 @@ class Timer extends React.PureComponent {
       seconds: 1500,
       intervalId: '',
       play: false,
-      takeBreak: false
+      takeBreak: false,
+      iconTypePlay: 'play',
+      iconTypeDelete: 'delete',
+      iconTypeStop: 'stop',
     };
   }
 
@@ -38,7 +47,7 @@ class Timer extends React.PureComponent {
   };
 
   backWork() {
-    this.setState({ seconds: 1500, takeBreak: false })
+    this.setState({ seconds: 1500, takeBreak: false, iconTypeStop: 'stop' })
     this.pause();
     const { onFinish } = this.props;
     onFinish(false);
@@ -46,43 +55,48 @@ class Timer extends React.PureComponent {
 
   play() {
     let intervalId = setInterval(this.start, 1000);
-    this.setState({ intervalId: intervalId, play: true });
+    this.setState({ intervalId: intervalId, play: true, iconTypePlay: 'pause' });
   }
 
   pause() {
     clearInterval(this.state.intervalId);
-    this.setState({ play: false });
+    this.setState({ play: false, iconTypePlay: 'play' });
   }
   setSeconds = seconds => () => {
     this.setState({ seconds });
   };
 
   takeBreak() {
-    this.setState({ seconds: 300, takeBreak: true });
+    this.setState({ seconds: 300, takeBreak: true, iconTypeStop: 'stop' });
     console.log('takeBreak');
     this.play();
+  }
+
+  onBtnClick() {
+    this.state.play ? this.pause() : this.play();
+  }
+
+  onDeleteBtnClick() {
+    console.log('onDeleteBtnClick');
+  }
+
+  onStopBtnClick() {
+    this.state.iconTypeStop === 'stop' ? this.setState({ seconds: 0, iconTypeStop: 'restart' }) : this.setState({ seconds: this.state.takeBreak ? 300 : 1500, iconTypeStop: 'stop' });
   }
 
   render() {
     return (
       <TimerWrapper>
-        <TestTool
-          onClick1={this.setSeconds(3)}
-          onClick2={this.setSeconds(1500)}
-        />
-        {minutes(this.state.seconds)}
-        <Button
-          onClick={() => this.play()}
-          hidden={this.state.play ? true : false}
-        >
-          start
-        </Button>
-        <Button
-          onClick={() => this.pause()}
-          hidden={this.state.play ? false : true}
-        >
-          stop
-        </Button>
+        <TimerClock>{minutes(this.state.seconds)}</TimerClock>
+        <FabButton onClick={() => this.onStopBtnClick()} small>
+          <AniIcon type={this.state.iconTypeStop} />
+        </FabButton>
+        <FabButton onClick={() => this.onBtnClick()}>
+          <AniIcon type={this.state.iconTypePlay} />
+        </FabButton>
+        <FabButton onClick={() => this.onDeleteBtnClick()} small>
+          <AniIcon type={this.state.iconTypeDelete} />
+        </FabButton>
       </TimerWrapper>
     );
   }
