@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import AniIcon from '../components/Icons';
-import { FabButton } from '../components/Buttons';
 import { breakpoint } from '../themes/mixins';
+import { FabButton } from '../components/Buttons';
+import { Panel, PanelHeader } from '../components/Panel';
 
 const FabButtonTodo = styled(FabButton)`
   position: absolute;
@@ -34,7 +35,7 @@ class ChartContainer extends React.PureComponent {
     };
   }
   onOpanClick = () => {
-    this.setState({ open: !this.state.open, type: this.state.open?'chart':'delete' });
+    this.setState({ open: !this.state.open, type: this.state.open ? 'chart' : 'delete' });
   }
   render() {
     return (
@@ -42,7 +43,12 @@ class ChartContainer extends React.PureComponent {
         <FabButtonTodo outLine onClick={this.onOpanClick}>
           <AniIcon type={this.state.type}></AniIcon>
         </FabButtonTodo>
-        <Chart hidden={!this.state.open}>ChartContainer</Chart>
+        <Chart hidden={!this.state.open}>
+          <Panel>
+            <PanelHeader>ChartContainer</PanelHeader>
+          </Panel>
+
+        </Chart>
       </React.Fragment>
     );
   }

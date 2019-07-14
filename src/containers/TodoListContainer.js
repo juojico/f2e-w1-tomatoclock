@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import AniIcon from '../components/Icons';
-import { FabButton } from '../components/Buttons';
+import TodoList from '../components/TodoList';
+import TodoItems from '../components/TodoList/TodoItems';
+import AddNewTask from '../components/TodoList/AddNewTask';
 import { breakpoint } from '../themes/mixins';
+import { FabButton } from '../components/Buttons';
 
 const FabButtonTodo = styled(FabButton)`
   position: absolute;
@@ -30,11 +33,17 @@ class TodoListContainer extends React.PureComponent {
     super(props);
     this.state = {
       open: false,
-      type: 'add'
+      type: 'add',
+      data: []
     };
   }
+
+  componentDidMount() {
+    this.setState({ data: this.props.data });
+  }
+
   onOpanClick = () => {
-    this.setState({ open: !this.state.open, type: this.state.open?'add':'delete' });
+    this.setState({ open: !this.state.open, type: this.state.open ? 'add' : 'delete' });
   }
   render() {
     return (
@@ -42,7 +51,14 @@ class TodoListContainer extends React.PureComponent {
         <FabButtonTodo outLine onClick={this.onOpanClick}>
           <AniIcon type={this.state.type}></AniIcon>
         </FabButtonTodo>
-        <Todo hidden={!this.state.open}>TodoListContainer</Todo>
+        <Todo hidden={!this.state.open}>
+          <TodoList title={'TodoList'}>
+            {(this.state.data).map((item, index) => {
+              return <TodoItems title={item.title} tomatos={item.usedTomato} key={item.id}></TodoItems>
+            })}
+            <AddNewTask></AddNewTask>
+          </TodoList>
+        </Todo>
       </React.Fragment>
     );
   }

@@ -3,24 +3,48 @@ import styled from 'styled-components';
 import Timer from '../components/Timer';
 import Tomato from '../components/Tomato';
 import TakeBreak from '../components/TakeBreak';
+import TaskNow from '../components/TodoList/TaskNow';
 import ChartContainer from '../containers/ChartContainer';
 import SettingContainer from '../containers/SettingContainer';
 import TodoListContainer from '../containers/TodoListContainer';
-import TaskNow from '../components/TodoList/TaskNow';
 
 const MOCK_DATA = {
   nowTask: {
     id: 123,
     title: 'Task Now ContnetText',
     content: '',
-    usedTomato: 3
-  }
+    usedTomato: 3,
+    isDone: false
+  },
+  planTask: [
+    {
+      id: 131,
+      title: 'Task 1 ContnetText',
+      content: '',
+      usedTomato: 3,
+      isDone: false
+    }, {
+      id: 132,
+      title: 'Task 2 ContnetText',
+      content: '',
+      usedTomato: 5,
+      isDone: false
+    }, {
+      id: 133,
+      title: 'Task 3 ContnetText',
+      content: '',
+      usedTomato: 0,
+      isDone: false
+    }
+  ]
 }
 
 const Container = styled.div`
   background-color: #282c34;
   height: 100vh;
-  overflow: hidden;
+  min-height: 700px;
+  min-width: 300px;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +103,7 @@ class MainContainer extends React.PureComponent {
         <TakeBreak hidden={!this.state.takeBreak} />
         <Timer onFinish={this.onFinish} />
         <TaskNow data={MOCK_DATA.nowTask} />
-        <TodoListContainer />
+        <TodoListContainer data={MOCK_DATA.planTask} />
         <ChartContainer />
         <SettingContainer />
       </Container>

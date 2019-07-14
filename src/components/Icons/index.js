@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Icon = styled.div`
   position: relative;
-  width: 2em;
-  height: 2em;
+  width: 1em;
+  height: 1em;
   background-color: transparent;
   ${props => props.iconType}
 `;
@@ -16,8 +16,8 @@ const iconType = (typeName, color) => {
         &::before,&::after {
           ${defaultIconType}
           left: 30%;
-          border: 1em solid transparent;
-          border-left-width: 1.2em;
+          border: .5em solid transparent;
+          border-left-width: .6em;
           border-right-width: 0;
           border-left-color: ${color};
         }
@@ -40,14 +40,14 @@ const iconType = (typeName, color) => {
         return `
           &::before,&::after {
             ${defaultIconType}
-            border: 0.2em solid ${color};
+            border: 0.1em solid ${color};
             border-bottom-color: transparent;
             border-radius: 100%;
           }
           &::after {
             top: 45%;
             left: 20%;
-            border: 1em solid transparent;
+            border: .5em solid transparent;
             border-left-color: ${color};
             transform: rotate(135deg) scale(0.5);
           }
@@ -56,14 +56,14 @@ const iconType = (typeName, color) => {
         return `
           &::before,&::after {
             ${defaultIconType}
-            border: 0.2em solid ${color};
+            border: 0.1em solid ${color};
             border-bottom-color: transparent;
             border-radius: 100%;
           }
           &::after {
             top: 45%;
             left: -15%;
-            border: 1em solid transparent;
+            border: .5em solid transparent;
             border-left-color: ${color};
             transform: rotate(45deg) scale(0.5);
           }
@@ -83,7 +83,7 @@ const iconType = (typeName, color) => {
         return `
           &::before,&::after {
             ${defaultIconType}
-            width: 20%;
+            width: 15%;
             left: 40%;
             background-color: ${color};
           }
@@ -95,7 +95,7 @@ const iconType = (typeName, color) => {
         return `
           &::before,&::after {
             ${defaultIconType}
-            width: 20%;
+            width: 15%;
             left: 40%;
             transform: rotate(45deg);
             background-color: ${color};
@@ -109,14 +109,14 @@ const iconType = (typeName, color) => {
           &::before,&::after {
             ${defaultIconType}
             border-radius: 100%;
-            border: .3em dashed ${color};
+            border: .15em dashed ${color};
           }
           &::after {
             width: 80%;
             height: 80%;
             top: 10%;
             left: 10%;
-            border: .5em solid ${color};
+            border: .25em solid ${color};
           }
         `
         case 'chart':
@@ -126,9 +126,9 @@ const iconType = (typeName, color) => {
             width: 50%;
             height: 50%;
             top: 45%;
-            left: 19%;
-            border-left: .375em solid ${color};
-            border-right: .375em solid ${color};
+            left: 17%;
+            border-left: .15em solid ${color};
+            border-right: .15em solid ${color};
           }
           &::after {
             width: 100%;
@@ -136,7 +136,7 @@ const iconType = (typeName, color) => {
             top: 5%;
             left: 0%;
             border-left: none;
-            border-bottom: .1em solid ${color};
+            border-bottom: .05em solid ${color};
           }
         `
     default:

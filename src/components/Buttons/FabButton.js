@@ -7,8 +7,8 @@ const ButtonBasic = styled.button`
   border: none;
   border-radius: 100%;
   color: white;
-  font-size: ${props=>props.small?'.75em':'1em'};
-  padding: ${props=>props.small?'.75em':'1em'};
+  font-size: ${props=>props.small?'1.5em':'2em'};
+  padding: ${props=>props.small?'.375em':'.5em'};
   margin: 0.5em;
   opacity: ${props=>props.disable?'0.5':'1'};
   cursor: ${props=>props.disable?'normal':'pointer'};

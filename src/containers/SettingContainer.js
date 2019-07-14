@@ -1,14 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import AniIcon from '../components/Icons';
-import { FabButton } from '../components/Buttons';
 import { breakpoint } from '../themes/mixins';
+import { FabButton } from '../components/Buttons';
+import { Panel, PanelHeader } from '../components/Panel';
 
 const FabButtonTodo = styled(FabButton)`
   position: absolute;
   right: 0;
   top: 0;
   z-index: 20;
+`;
+
+const SettingWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 11;
 `;
 
 const Setting = styled.div`
@@ -19,7 +30,7 @@ const Setting = styled.div`
   min-width: 300px;
   height: 50%;
   background-color: rgba(255,255,255,0.3);
-  z-index: 10;
+  z-index: 12;
   ${breakpoint.down('m')`
     height: 100%;
   `}
@@ -34,7 +45,7 @@ class SettingContainer extends React.PureComponent {
     };
   }
   onOpanClick = () => {
-    this.setState({ open: !this.state.open, type: this.state.open?'setting':'delete' });
+    this.setState({ open: !this.state.open, type: this.state.open ? 'setting' : 'delete' });
   }
   render() {
     return (
@@ -42,7 +53,13 @@ class SettingContainer extends React.PureComponent {
         <FabButtonTodo outLine onClick={this.onOpanClick}>
           <AniIcon type={this.state.type}></AniIcon>
         </FabButtonTodo>
-        <Setting hidden={!this.state.open}>SettingContainer</Setting>
+        <Setting hidden={!this.state.open}>
+          <Panel>
+            <PanelHeader>SettingContainer</PanelHeader>
+          </Panel>
+        </Setting>
+        <SettingWrapper hidden={!this.state.open} onClick={this.onOpanClick}>
+        </SettingWrapper>
       </React.Fragment>
     );
   }
