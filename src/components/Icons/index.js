@@ -36,7 +36,7 @@ const iconType = (typeName, color) => {
           left: 65%;
         }
       `
-      case 'restart':
+      case 'skip':
         return `
           &::before,&::after {
             ${defaultIconType}
@@ -52,6 +52,22 @@ const iconType = (typeName, color) => {
             transform: rotate(135deg) scale(0.5);
           }
         `
+      case 'restart':
+        return `
+          &::before,&::after {
+            ${defaultIconType}
+            border: 0.2em solid ${color};
+            border-bottom-color: transparent;
+            border-radius: 100%;
+          }
+          &::after {
+            top: 45%;
+            left: -15%;
+            border: 1em solid transparent;
+            border-left-color: ${color};
+            transform: rotate(45deg) scale(0.5);
+          }
+        `
       case 'stop':
         return `
           &::before,&::after {
@@ -61,6 +77,18 @@ const iconType = (typeName, color) => {
             top: 20%;
             left: 20%;
             background-color: ${color};
+          }
+        `
+      case 'add':
+        return `
+          &::before,&::after {
+            ${defaultIconType}
+            width: 20%;
+            left: 40%;
+            background-color: ${color};
+          }
+          &::after {
+            transform: rotate(90deg);
           }
         `
       case 'delete':
@@ -74,6 +102,41 @@ const iconType = (typeName, color) => {
           }
           &::after {
             transform: rotate(-45deg);
+          }
+        `
+        case 'setting':
+        return `
+          &::before,&::after {
+            ${defaultIconType}
+            border-radius: 100%;
+            border: .3em dashed ${color};
+          }
+          &::after {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border: .5em solid ${color};
+          }
+        `
+        case 'chart':
+        return `
+          &::before,&::after {
+            ${defaultIconType}
+            width: 50%;
+            height: 50%;
+            top: 45%;
+            left: 19%;
+            border-left: .375em solid ${color};
+            border-right: .375em solid ${color};
+          }
+          &::after {
+            width: 100%;
+            height: 90%;
+            top: 5%;
+            left: 0%;
+            border-left: none;
+            border-bottom: .1em solid ${color};
           }
         `
     default:

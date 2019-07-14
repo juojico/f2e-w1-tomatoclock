@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FabButton } from '../Buttons';
 import AniIcon from '../../components/Icons';
+import { FabButton } from '../Buttons';
 
 const TimerWrapper = styled.div`
   position: relative;
@@ -13,12 +13,27 @@ const TimerClock = styled.h1`
   position: relative;
   width: 100%;
   color: #f05550;
+  font-size: 5em;
+  margin: 0;
+  div>span.big {
+    font-size: 1.5em;
+  }
 `;
 
-const minutes = seconds =>
-  Math.floor(seconds / 60) +
-  ' : ' +
-  (seconds % 60 < 10 ? '0' + (seconds % 60) : seconds % 60);
+const BtnBOX = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+const minutes = seconds => {
+
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60 < 10 ? '0' + (seconds % 60) : seconds % 60;
+
+  return (<div><span className='big'>{min}</span><span>:{sec}</span></div>)
+};
 
 class Timer extends React.PureComponent {
   constructor(props) {
@@ -46,7 +61,7 @@ class Timer extends React.PureComponent {
     this.takeBreak();
   };
 
-  backWork() {
+  backWork = () => {
     this.setState({ seconds: 1500, takeBreak: false, iconTypeStop: 'stop' })
     this.pause();
     const { onFinish } = this.props;
@@ -88,7 +103,8 @@ class Timer extends React.PureComponent {
     return (
       <TimerWrapper>
         <TimerClock>{minutes(this.state.seconds)}</TimerClock>
-        <FabButton onClick={() => this.onStopBtnClick()} small>
+        <BtnBOX>
+        <FabButton onClick={() => this.onStopBtnClick()} small disable={!this.state.play}>
           <AniIcon type={this.state.iconTypeStop} />
         </FabButton>
         <FabButton onClick={() => this.onBtnClick()}>
@@ -97,6 +113,7 @@ class Timer extends React.PureComponent {
         <FabButton onClick={() => this.onDeleteBtnClick()} small>
           <AniIcon type={this.state.iconTypeDelete} />
         </FabButton>
+        </BtnBOX>
       </TimerWrapper>
     );
   }

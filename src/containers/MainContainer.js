@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Timer from '../components/Timer';
 import Tomato from '../components/Tomato';
 import TakeBreak from '../components/TakeBreak';
-import MainMenu from '../components/MainMenu';
 import ChartContainer from '../containers/ChartContainer';
 import SettingContainer from '../containers/SettingContainer';
 import TodoListContainer from '../containers/TodoListContainer';
@@ -16,7 +15,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
+    font-size: 1rem;
     color: white;
     text-align: center;
   }
@@ -26,10 +25,7 @@ class MainContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      takeBreak: false,
-      chartOpen: false,
-      todoOpen: false,
-      settingOpen: false
+      takeBreak: false
     };
   }
   onFinish = (working) => {
@@ -69,13 +65,12 @@ class MainContainer extends React.PureComponent {
   render() {
     return (
       <Container>
-        <MainMenu onClick={this.onMainMenuClick} />
-        <Tomato text={'task 1 textcontent'} hidden={this.state.takeBreak} />
+        <Tomato size={24} text={'task 1 textcontent'} hidden={this.state.takeBreak} />
         <TakeBreak hidden={!this.state.takeBreak} />
         <Timer onFinish={this.onFinish} />
-        <TodoListContainer hidden={!this.state.todoOpen} />
-        <ChartContainer hidden={!this.state.chartOpen} />
-        <SettingContainer hidden={!this.state.settingOpen} />
+        <TodoListContainer />
+        <ChartContainer />
+        <SettingContainer />
       </Container>
     );
   }
