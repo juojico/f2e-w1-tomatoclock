@@ -13,7 +13,7 @@ const TomatoBody = styled.div`
   height: ${props=>props.size * 11}px;
   background-color: #f05550;
   border: 10px solid #e04540;
-  border-width: 4px 8px 10px 4px;
+  border-width: ${props=>props.size<10?'1px 2px 3px 1px':'4px 8px 10px 4px'};
   border-radius: 90% 100%;
   animation: ${tomatoRoll} 1s alternate infinite;
   ::before {
@@ -63,14 +63,14 @@ const Leaves = styled.div`
   }
 `;
 
-const TaskNow = styled.div`
+const TomatoSay = styled.div`
   position: absolute;
-  font-size: ${props=>props.textLen>20?'1em':'1.5em'};
-  top: 100%;
+  font-size: ${(props=>props.text).length>20?'1em':'1.5em'};
   width: 100%;
+  top: -30%;
 `;
 
-const Tomato = ({ size='1', text, ...props }) => {
+const Tomato = ({ size='2', text, ...props }) => {
   return (
     <TomatoBody size={size} {...props}>
       <Leaves />
@@ -78,7 +78,7 @@ const Tomato = ({ size='1', text, ...props }) => {
       <Leaves />
       <Leaves />
       <Leaves />
-      <TaskNow textLen={text.length}>{text}</TaskNow>
+      <TomatoSay>{text}</TomatoSay>
     </TomatoBody>
   );
 };

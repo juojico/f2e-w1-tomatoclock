@@ -6,26 +6,36 @@ import TakeBreak from '../components/TakeBreak';
 import ChartContainer from '../containers/ChartContainer';
 import SettingContainer from '../containers/SettingContainer';
 import TodoListContainer from '../containers/TodoListContainer';
+import TaskNow from '../components/TodoList/TaskNow';
+
+const MOCK_DATA = {
+  nowTask: {
+    id: 123,
+    title: 'Task Now ContnetText',
+    content: '',
+    usedTomato: 3
+  }
+}
 
 const Container = styled.div`
-   {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: white;
-    text-align: center;
-  }
+  background-color: #282c34;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: white;
+  text-align: center;
 `;
 
 class MainContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      takeBreak: false
+      takeBreak: false,
+      tomatoSays: `Hi! I'm TOMATO!`
     };
   }
   onFinish = (working) => {
@@ -65,9 +75,10 @@ class MainContainer extends React.PureComponent {
   render() {
     return (
       <Container>
-        <Tomato size={24} text={'task 1 textcontent'} hidden={this.state.takeBreak} />
+        <Tomato size={24} text={this.state.tomatoSays} hidden={this.state.takeBreak} />
         <TakeBreak hidden={!this.state.takeBreak} />
         <Timer onFinish={this.onFinish} />
+        <TaskNow data={MOCK_DATA.nowTask} />
         <TodoListContainer />
         <ChartContainer />
         <SettingContainer />
