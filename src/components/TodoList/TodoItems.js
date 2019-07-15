@@ -14,15 +14,21 @@ const TodoItemsWrapper = styled.div`
 `;
 
 const TaskTitle = styled.span`
-  font-size: 1.2em;
+  font-size: ${props => props.checked ? '1em' : '1.25em'};
   padding: 0;
   margin: 0;
+  ${props => props.checked ? 'text-decoration: line-through' : ''};
 `;
 
 const TaskBtn = styled(FabButton)`
   font-size: 1em;
   padding: 8px;
   margin: 0;
+  ${props => props.nowTask ? `
+    font-size: 1.25em;
+    padding: 0 6px;
+    pointer-events: none;
+  ` : ''};
 `;
 
 const BtnBox = styled.div`
@@ -57,21 +63,26 @@ const makeTomatos = data => {
   )
 }
 
-const TodoItems = ({ children, title, tomatos, deleteItem, ...props }) => {
+const TodoItems = ({ children, title, tomatos, deleteItem, doneItem, nowItem, btnType = 'play', checked = false, nowTask = false, ...props }) => {
 
   return (
     <TodoItemsWrapper {...props}>
-      <TaskTitle>{title}</TaskTitle>
+      <TaskTitle checked={checked}>{title}</TaskTitle>
       <UsedTomatoBox>
         {makeTomatos(tomatos)}
       </UsedTomatoBox>
       <BtnBox>
-      <TaskBtn outLine onClick={deleteItem}>
-        <AniIcon type={'delete'}></AniIcon>
-      </TaskBtn>
-      <TaskBtn outLine>
-        <AniIcon type={'play'}></AniIcon>
-      </TaskBtn>
+        <TaskBtn outLine onClick={deleteItem}>
+          <AniIcon type={'delete'} color='darkgrey'></AniIcon>
+        </TaskBtn>
+        <TaskBtn outLine onClick={doneItem}>
+          <AniIcon type={'check'} color={checked ? '#30ff50' : 'darkgrey'}></AniIcon>
+        </TaskBtn>
+        {checked ? '':
+        <TaskBtn outLine nowTask={nowTask} onClick={nowItem}>
+          <AniIcon type={btnType} color={nowTask ? '#f05550' : 'darkgrey'}></AniIcon>
+        </TaskBtn>
+        }
       </BtnBox>
     </TodoItemsWrapper>
   );

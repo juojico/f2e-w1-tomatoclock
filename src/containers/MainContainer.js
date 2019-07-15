@@ -41,49 +41,28 @@ class MainContainer extends React.PureComponent {
     super(props);
     this.state = {
       takeBreak: false,
-      tomatoSays: `Hi! I'm TOMATO!`
+      tomatoSays: `Hi! I'm TOMATO!`,
+      taskNow: {},
+      taskNowCheck: false
     };
   }
   onFinish = working => {
     console.log('Finish');
     this.setState({ takeBreak: working });
   };
-  onMainMenuClick = target => {
-    console.log(target);
-    switch (target) {
-      case 'chart':
-        return this.setState({
-          chartOpen: true,
-          todoOpen: false,
-          settingOpen: false
-        });
-      case 'todo':
-        return this.setState({
-          chartOpen: false,
-          todoOpen: true,
-          settingOpen: false
-        });
-      case 'setting':
-        return this.setState({
-          chartOpen: false,
-          todoOpen: false,
-          settingOpen: true
-        });
-      case 'close':
-        return this.setState({
-          chartOpen: false,
-          todoOpen: false,
-          settingOpen: false
-        });
-      default:
-        break;
-    }
+  getTaskNow = taskNow => {
+    this.setState({ taskNow: taskNow });
+  }
+
+  doneItem = () => {
+    this.setState({ taskNowCheck: true });
+    console.log('doneItem',this.state);
   };
   
   render() {
     return (
       <Container>
-        <TodoListContainer />
+        <TodoListContainer getTaskNow={this.getTaskNow} taskNowCheck={this.state.taskNowCheck}/>
         <MainBox>
           <Tomato
             size={12}
@@ -92,7 +71,7 @@ class MainContainer extends React.PureComponent {
           />
           <TakeBreak hidden={!this.state.takeBreak} />
           <Timer onFinish={this.onFinish} />
-          <TaskNow data={'asd'} />
+          <TaskNow data={this.state.taskNow} doneItem={this.doneItem}/>
         </MainBox>
         <ChartContainer />
         <SettingContainer />

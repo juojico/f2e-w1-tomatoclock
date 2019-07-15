@@ -13,7 +13,7 @@ const TimerWrapper = styled.div`
   justify-content: center;
   padding: 2em;
   margin-top: -4em;
-  border: 2px solid #f05550;
+  border: 2px solid ${props=>props.takeBreak?'#40bfdf':'#f05550'};
   border-radius: 100%;
 `;
 
@@ -21,7 +21,7 @@ const TimerClock = styled.h1`
   position: relative;
   width: 100%;
   font-weight: normal;
-  color: #f05550;
+  color: ${props=>props.takeBreak?'#40bfdf':'#f05550'};
   font-size: 5em;
   margin: 0;
   div>span.big {
@@ -104,6 +104,7 @@ class Timer extends React.PureComponent {
 
   onRestartBtnClick() {
     this.setState({ seconds: this.state.takeBreak ? 300 : 1500, onStart: true });
+    this.pause();
   }
   onSkipBtnClick() {
     this.state.takeBreak ? this.backWork() : this.done();
@@ -111,16 +112,16 @@ class Timer extends React.PureComponent {
 
   render() {
     return (
-      <TimerWrapper>
-        <TimerClock>{minutes(this.state.seconds)}</TimerClock>
+      <TimerWrapper takeBreak={this.state.takeBreak}>
+        <TimerClock takeBreak={this.state.takeBreak}>{minutes(this.state.seconds)}</TimerClock>
         <BtnBox>
-          <FabButton onClick={() => this.onRestartBtnClick()} small disable={this.state.onStart}>
+          <FabButton takeBreak={this.state.takeBreak} onClick={() => this.onRestartBtnClick()} small disable={this.state.onStart}>
             <AniIcon type={'restart'} />
           </FabButton>
-          <FabButton onClick={() => this.onBtnClick()}>
+          <FabButton takeBreak={this.state.takeBreak} onClick={() => this.onBtnClick()}>
             <AniIcon type={this.state.iconTypePlay} />
           </FabButton>
-          <FabButton onClick={() => this.onSkipBtnClick()} small >
+          <FabButton takeBreak={this.state.takeBreak} onClick={() => this.onSkipBtnClick()} small >
             <AniIcon type={'skip'} />
           </FabButton>
         </BtnBox>

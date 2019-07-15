@@ -63,10 +63,10 @@ const MOCK_DONE = [
 ];
 
 const data = localStorage.getItem('todoList')
-? JSON.parse(localStorage.getItem('todoList'))
-: {
-  todo: [...MOCK_DONE]
-};
+  ? JSON.parse(localStorage.getItem('todoList'))
+  : {
+    todo: [...MOCK_DONE]
+  };
 
 class TodoListContainer extends React.PureComponent {
   constructor(props) {
@@ -74,15 +74,22 @@ class TodoListContainer extends React.PureComponent {
     this.state = {
       open: false,
       type: 'add',
-      data: [],
       todo: [...data.todo],
       currentItem: { text: '', key: '' },
-      errorText: ''
+      errorText: '',
+      nowTask: {}
     };
   }
 
-  componentDidMount() {
-    this.setState({ data: this.props.data });
+  getTask = () => {
+    const { getTaskNow } = this.props;
+    this.setState({ nowTask: this.getFirstUndone() });
+    getTaskNow(this.getFirstUndone());
+  }
+
+  getFirstUndone() {
+    const undoItem = this.state.todo.find(item => item.isDone ? '' : item);
+    return undoItem ? undoItem : { text: '請點擊左下角按鈕新增任務' };
   }
 
   handleInput = e => {
@@ -113,6 +120,40 @@ class TodoListContainer extends React.PureComponent {
 
     data.todo = filteredItems;
     localStorage.setItem('todoList', JSON.stringify(data));
+  };
+
+  doneItem = key => {
+    const findItem = this.state.todo.find(item => {
+      return item.key === key
+    });
+    findItem.isDone ? (findItem.isDone = false) : (findItem.isDone = true);
+    const filteredItems = this.state.todo.filter(item => {
+      return item.key !== key;
+    });
+
+    this.setState({
+      todo: [findItem, ...filteredItems]
+    });
+
+    data.todo = [findItem, ...filteredItems];
+    localStorage.setItem('todoList', JSON.stringify(data));
+  };
+
+  nowItem = key => {
+    const findItem = this.state.todo.find(item => {
+      return item.key === key
+    });
+    const filteredItems = this.state.todo.filter(item => {
+      return item.key !== key;
+    });
+
+    this.setState({
+      todo: [findItem, ...filteredItems]
+    });
+
+    data.todo = [findItem, ...filteredItems];
+    localStorage.setItem('todoList', JSON.stringify(data));
+    console.log(key, data.todo);
   };
 
   addItem = e => {
@@ -150,23 +191,28 @@ class TodoListContainer extends React.PureComponent {
       type: this.state.open ? 'add' : 'delete'
     });
   };
+
   render() {
     return (
-      <React.Fragment>
-        <FabButtonTodo outLine onClick={this.onOpanClick}>
+      <React.Fragment >
+        <FabButtonTodo outLine onClick={this.onOpanClick} >
           <AniIcon type={this.state.type} />
         </FabButtonTodo>
-        <Todo open={this.state.open}>
-          <TodoList title={'TodoList'}>
-            {this.state.todo.map((item, index) => {
+        <Todo open={this.state.open} >
+          <TodoList title={'TodoList'} getTaskNow={this.getTask()} >
+            {this.state.todo.map(item => {
               return (
-                item.isDone?
-                '':<TodoItems
-                  title={item.text}
-                  tomatos={item.usedTomato}
-                  key={item.key}
-                  deleteItem={() => this.deleteItem(item.key)}
-                />
+                item.isDone ?
+                  '' : <TodoItems
+                    title={item.text}
+                    tomatos={item.usedTomato}
+                    key={item.key}
+                    deleteItem={() => this.deleteItem(item.key)}
+                    doneItem={() => this.doneItem(item.key)}
+                    nowItem={() => this.nowItem(item.key)}
+                    checked={false}
+                    nowTask={this.state.nowTask.key === item.key ? true : false}
+                  />
               );
             })}
             <AddNewTask
@@ -178,15 +224,18 @@ class TodoListContainer extends React.PureComponent {
             />
           </TodoList>
           <TodoList title={'Done'}>
-            {this.state.todo.map((item, index) => {
+            {this.state.todo.map(item => {
               return (
-                item.isDone?
-                <TodoItems
-                  title={item.text}
-                  tomatos={item.usedTomato}
-                  key={item.key}
-                  deleteItem={() => this.deleteItem(item.key)}
-                />:''
+                item.isDone ?
+                  <TodoItems
+                    title={item.text}
+                    tomatos={item.usedTomato}
+                    key={item.key}
+                    deleteItem={() => this.deleteItem(item.key)}
+                    doneItem={() => this.doneItem(item.key)}
+                    btnType='up'
+                    checked={true}
+                  /> : ''
               );
             })}
           </TodoList>

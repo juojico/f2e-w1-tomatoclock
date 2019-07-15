@@ -19,12 +19,13 @@ const TaskContent = styled.div`
   border-bottom: 1px solid #666;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 const TaskTitle = styled.div`
   color: white;
   font-size: 2em;
+  padding: .25em;
 `;
 
 const UsedTomatoBox = styled.div`
@@ -34,10 +35,6 @@ const UsedTomatoBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const TaskBtn = styled(FabButton)`
-  font-size: 1.25em;
 `;
 
 const Tomatos = styled(Tomato)`
@@ -56,20 +53,17 @@ const makeTomatos = data => {
   )
 }
 
-const TaskNow = ({ onClick1, onClick2, hidden, data, ...props }) => {
+const TaskNow = ({ data, doneItem, ...props }) => {
 
   return (
     <TaskNowWrapper>
       <TaskContent>
-        <TaskBtn outLine>
-            <AniIcon type={'delete'}></AniIcon>
-        </TaskBtn>
         <TaskTitle>
-          {data.title}
+          {data.text}
         </TaskTitle>
-        <TaskBtn outLine>
-            <AniIcon type={'skip'}></AniIcon>
-        </TaskBtn>
+        <FabButton outLine onClick={doneItem}>
+          <AniIcon type={'check'} color='darkgrey'></AniIcon>
+        </FabButton>
       </TaskContent>
       <UsedTomatoBox>
         {makeTomatos(data.usedTomato)}

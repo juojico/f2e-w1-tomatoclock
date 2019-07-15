@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ButtonBasic = styled.button`
   position: relative;
-  background-color: ${props=>props.disable?'grey':(props=>props.outLine?'transparent':'#f05550')};
+  background-color: ${props=>props.disable?'grey':(props=>props.outLine?'transparent':props=>props.takeBreak?'#40bfdf':'#f05550')};
   border: none;
   border-radius: 100%;
   color: white;
@@ -15,13 +15,13 @@ const ButtonBasic = styled.button`
   pointer-events: ${props=>props.disable?'none':'normal'};
   transition: 0.2s ease-in-out;
   :hover {
-    background-color: ${props=>props.disable?'grey':(props=>props.outLine?'rgba(255,255,255,0.1)':'#ff6560')};
+    background-color: ${props=>props.disable?'grey':(props=>props.outLine?'rgba(255,255,255,0.1)':props=>props.takeBreak?'#40bfdf':'#ff6560')};
   }
 `;
 
-const FabButton = ({ children, ...props }) => {
+const FabButton = ({ children, takeBreak, ...props }) => {
   return (
-    <ButtonBasic {...props}>
+    <ButtonBasic takeBreak={takeBreak} {...props}>
       {children}
     </ButtonBasic>
   );
