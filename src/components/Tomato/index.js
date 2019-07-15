@@ -9,11 +9,11 @@ const tomatoRoll = keyframes`
 
 const TomatoBody = styled.div`
   position: relative;
-  width: 300px;
-  height: 270px;
+  width: ${props=>props.size * 12}px;
+  height: ${props=>props.size * 11}px;
   background-color: #f05550;
   border: 10px solid #e04540;
-  border-width: 4px 8px 10px 4px;
+  border-width: ${props=>props.size<10?'1px 2px 3px 1px':'4px 8px 10px 4px'};
   border-radius: 90% 100%;
   animation: ${tomatoRoll} 1s alternate infinite;
   ::before {
@@ -63,14 +63,22 @@ const Leaves = styled.div`
   }
 `;
 
-const Tomato = ({ ...props }) => {
+const TomatoSay = styled.div`
+  position: absolute;
+  font-size: ${(props=>props.text).length>20?'1em':'1.5em'};
+  width: 100%;
+  top: -30%;
+`;
+
+const Tomato = ({ size='2', text, ...props }) => {
   return (
-    <TomatoBody {...props}>
+    <TomatoBody size={size} {...props}>
       <Leaves />
       <Leaves />
       <Leaves />
       <Leaves />
       <Leaves />
+      <TomatoSay>{text}</TomatoSay>
     </TomatoBody>
   );
 };

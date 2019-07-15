@@ -953,6 +953,11 @@
   dependencies:
     "@hapi/hoek" "6.x.x"
 
+"@humblebee/styled-components-breakpoint@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@humblebee/styled-components-breakpoint/-/styled-components-breakpoint-2.1.4.tgz#9a3c31ec12f98b337706bd009362c4df2fff2f2a"
+  integrity sha512-apaHqpY49nEMwIAjoFmedlVocgaQdGY1iQrUpf0G5Cdjw6WLGrrWaWpR6Ne9Mhab7pIe1cjeDqS35C5TTLIpFQ==
+
 "@jest/console@^24.7.1":
   version "24.7.1"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.7.1.tgz#32a9e42535a97aedfe037e725bd67e954b459545"

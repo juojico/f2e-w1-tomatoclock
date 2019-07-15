@@ -13,8 +13,8 @@ const TestTool = ({ children, onClick1, onClick2, hidden, ...props }) => {
     return (
       <TestToolWrapper>
         測試
-        <FabButton onClick={onClick1}>3秒</FabButton>
-        <FabButton onClick={onClick2}>25分鐘</FabButton>
+        <FabButton onClick={onClick1} small>3秒</FabButton>
+        <FabButton onClick={onClick2} small>25分鐘</FabButton>
       </TestToolWrapper>
     );
 }
