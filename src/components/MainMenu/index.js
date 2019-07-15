@@ -1,20 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../Buttons/Button'
+import FabButton from '../Buttons/FabButton';
 
 const Menu = styled.div`
-  {
-    position: fixed;
-   bottom: 0;
-   padding: 24px;
-   z-index: 20;
-  }
+  position: fixed;
+  bottom: 0;
+  padding: 24px;
+  z-index: 20;
 `;
 
-const MenuItem = styled(Button)`
-{
-  width: 200px;
-}
+const MenuItem = styled(FabButton)`
+  width: 100px;
 `;
 
 class MainMenu extends React.PureComponent {
@@ -28,10 +24,10 @@ class MainMenu extends React.PureComponent {
     };
   }
 
-  onClick = (target) => {
+  onClick = target => {
     const { onClick } = this.props;
-    onClick(target)
-  }
+    onClick(target);
+  };
 
   render() {
     return (
@@ -43,5 +39,5 @@ class MainMenu extends React.PureComponent {
       </Menu>
     );
   }
-};
+}
 export default MainMenu;

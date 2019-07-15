@@ -3,13 +3,12 @@ import styled from 'styled-components';
 
 const ButtonBasic = styled.button`
   position: relative;
-  width: 300px;
   background-color: #f05550;
   border: 2px solid #e04540;
   border-radius: 1em;
   color: white;
   font-size: 1em;
-  padding: 0.25em;
+  padding: 0.25em 1em;
   margin-top: 0.5em;
   cursor: pointer;
   :hover {

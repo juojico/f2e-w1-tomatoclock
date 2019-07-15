@@ -9,17 +9,15 @@ import SettingContainer from '../containers/SettingContainer';
 import TodoListContainer from '../containers/TodoListContainer';
 
 const Container = styled.div`
-   {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    text-align: center;
-  }
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  text-align: center;
 `;
 
 class MainContainer extends React.PureComponent {
@@ -32,11 +30,12 @@ class MainContainer extends React.PureComponent {
       settingOpen: false
     };
   }
-  onFinish = (working) => {
+  onFinish = working => {
     console.log('Finish');
     this.setState({ takeBreak: working });
   };
-  onMainMenuClick = (target) => {
+  onMainMenuClick = target => {
+    console.log(target);
     switch (target) {
       case 'chart':
         return this.setState({
@@ -62,9 +61,8 @@ class MainContainer extends React.PureComponent {
           todoOpen: false,
           settingOpen: false
         });
-
     }
-  }
+  };
   render() {
     return (
       <Container>
