@@ -57,7 +57,7 @@ const makeTomatos = data => {
   )
 }
 
-const TodoItems = ({ children, title, tomatos, ...props }) => {
+const TodoItems = ({ children, title, tomatos, deleteItem, ...props }) => {
 
   return (
     <TodoItemsWrapper {...props}>
@@ -66,7 +66,7 @@ const TodoItems = ({ children, title, tomatos, ...props }) => {
         {makeTomatos(tomatos)}
       </UsedTomatoBox>
       <BtnBox>
-      <TaskBtn outLine>
+      <TaskBtn outLine onClick={deleteItem}>
         <AniIcon type={'delete'}></AniIcon>
       </TaskBtn>
       <TaskBtn outLine>

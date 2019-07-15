@@ -13,15 +13,18 @@ const FabButtonTodo = styled(FabButton)`
 `;
 
 const Chart = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30%;
-  min-width: 300px;
-  height: 100%;
+  flex-grow: ${props=>props.open?1:0};
+  min-width: ${props=>props.open?'300px':'0'};
+  height: ${props=>props.open?'100%':'0px'};
+  width: ${props=>props.open?'30%':'0px'};
+  bottom: 0px;
+  overflow: hidden;
   background-color: rgba(255,255,255,0.3);
+  opacity: ${props=>props.open?1:0};
   z-index: 10;
-  ${breakpoint.down('m')`
+  transition: 1s;
+  ${breakpoint.down('l')`
+    position: absolute;
     width: 100%;
   `}
 `;
@@ -43,7 +46,7 @@ class ChartContainer extends React.PureComponent {
         <FabButtonTodo outLine onClick={this.onOpanClick}>
           <AniIcon type={this.state.type}></AniIcon>
         </FabButtonTodo>
-        <Chart hidden={!this.state.open}>
+        <Chart open={this.state.open}>
           <Panel>
             <PanelHeader>ChartContainer</PanelHeader>
           </Panel>

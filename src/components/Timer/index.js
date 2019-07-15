@@ -5,13 +5,22 @@ import { FabButton } from '../Buttons';
 
 const TimerWrapper = styled.div`
   position: relative;
-  width: 300px;
-  color: #f05550;
+  height: 320px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  margin-top: -4em;
+  border: 2px solid #f05550;
+  border-radius: 100%;
 `;
 
 const TimerClock = styled.h1`
   position: relative;
   width: 100%;
+  font-weight: normal;
   color: #f05550;
   font-size: 5em;
   margin: 0;

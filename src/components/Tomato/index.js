@@ -67,7 +67,9 @@ const TomatoSay = styled.div`
   position: absolute;
   font-size: ${(props=>props.text).length>20?'1em':'1.5em'};
   width: 100%;
-  top: -30%;
+  top: -20%;
+  left: 90%;
+  transform: rotate(-30deg);
 `;
 
 const Tomato = ({ size='2', text, ...props }) => {
