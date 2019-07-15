@@ -7,12 +7,6 @@ const ButtonBasic = styled.button`
   border: none;
   border-radius: 100%;
   color: white;
-<<<<<<< HEAD
-  font-size: 1rem;
-  padding: 0.5em;
-  margin-top: 0.5em;
-  cursor: pointer;
-=======
   font-size: ${props=>props.small?'1.5em':'2em'};
   padding: ${props=>props.small?'.375em':'.5em'};
   margin: 0.5em;
@@ -20,7 +14,6 @@ const ButtonBasic = styled.button`
   cursor: ${props=>props.disable?'normal':'pointer'};
   pointer-events: ${props=>props.disable?'none':'normal'};
   transition: 0.2s ease-in-out;
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
   :hover {
     background-color: ${props=>props.disable?'grey':(props=>props.outLine?'rgba(255,255,255,0.1)':'#ff6560')};
   }

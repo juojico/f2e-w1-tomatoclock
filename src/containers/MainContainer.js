@@ -41,23 +41,15 @@ const MOCK_DATA = {
 
 const Container = styled.div`
   background-color: #282c34;
-<<<<<<< HEAD
-  min-height: 100vh;
-=======
   height: 100vh;
   min-height: 700px;
   min-width: 300px;
   overflow-x: hidden;
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
-  font-size: calc(10px + 2vmin);
-=======
   font-size: 1rem;
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
   color: white;
   text-align: center;
 `;
@@ -101,11 +93,8 @@ class MainContainer extends React.PureComponent {
           todoOpen: false,
           settingOpen: false
         });
-<<<<<<< HEAD
-=======
       default:
         break;
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
     }
   };
   render() {

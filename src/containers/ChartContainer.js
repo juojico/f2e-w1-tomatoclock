@@ -15,13 +15,6 @@ const FabButtonTodo = styled(FabButton)`
 const Chart = styled.div`
   position: absolute;
   top: 0;
-<<<<<<< HEAD
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
-  z-index: 10;
-=======
   right: 0;
   width: 30%;
   min-width: 300px;
@@ -31,29 +24,20 @@ const Chart = styled.div`
   ${breakpoint.down('m')`
     width: 100%;
   `}
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
 `;
 
 class ChartContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
-    this.state = {};
-=======
     this.state = {
       open: false,
       type: 'chart'
     };
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
   }
   onOpanClick = () => {
     this.setState({ open: !this.state.open, type: this.state.open ? 'chart' : 'delete' });
   }
   render() {
-<<<<<<< HEAD
-    const { ...props } = this.props;
-    return <Chart {...props}>ChartContainer</Chart>;
-=======
     return (
       <React.Fragment>
         <FabButtonTodo outLine onClick={this.onOpanClick}>
@@ -67,7 +51,6 @@ class ChartContainer extends React.PureComponent {
         </Chart>
       </React.Fragment>
     );
->>>>>>> 9ae4d4b2be6d72e976ee51e82d771d2755730b22
   }
 }
 
