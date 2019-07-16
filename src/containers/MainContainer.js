@@ -36,33 +36,211 @@ const MainBox = styled.div`
   text-align: center;
 `;
 
+const MOCK_DONE = [
+  {
+    key: 130,
+    text: 'Task 1 ContnetText',
+    usedTomato: 0,
+    isDone: false
+  },
+  {
+    key: 131,
+    text: 'Task 2 ContnetText',
+    usedTomato: 3,
+    isDone: true
+  },
+  {
+    key: 132,
+    text: 'Task 3 ContnetText',
+    usedTomato: 5,
+    isDone: true
+  },
+  {
+    key: 133,
+    text: 'Task 4 ContnetText',
+    usedTomato: 1,
+    isDone: true
+  }
+];
+
+const data = localStorage.getItem('todoList')
+  ? JSON.parse(localStorage.getItem('todoList'))
+  : { todo: [...MOCK_DONE] };
+
 class MainContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       takeBreak: false,
       tomatoSays: `Hi! I'm TOMATO!`,
-      taskNow: {},
-      taskNowCheck: false
+      todo: [...data.todo],
+      currentItem: { text: '', key: '' },
+      errorText: '',
+      nowTask: {}
     };
   }
-  onFinish = working => {
-    console.log('Finish');
-    this.setState({ takeBreak: working });
-  };
-  getTaskNow = taskNow => {
-    this.setState({ taskNow: taskNow });
+
+  componentDidMount() {
+    this.getFirstUndone();
   }
 
-  doneItem = () => {
-    this.setState({ taskNowCheck: true });
-    console.log('doneItem',this.state);
+  componentDidUpdate() {
+    this.getFirstUndone();
+  }
+
+  getFirstUndone() {
+    const undoItem = this.state.todo.find(item => (item.isDone ? '' : item));
+    console.log(
+      'TCL: TodoListContainer -> getFirstUndone -> undoItem',
+      undoItem
+    );
+    if(undoItem) {
+      this.setState({
+        nowTask: undoItem
+      });
+    } else {
+      this.setState({
+        todo: [...this.state.todo,{text: '請先新增todo', key: 'default', usedTomato: 0, isDone: false}],
+        nowTask: {text: '請先新增todo', key: 'default',usedTomato: 0, isDone: false}
+      });
+    }
+  }
+
+  handleInput = e => {
+    const itemText = e.target.value;
+    const currentItem = { text: itemText, key: Date.now(),usedTomato: 0, isDone: false };
+    console.log('TCL: App -> currentItem', currentItem);
+    this.setState(
+      state => ({ ...state, currentItem }),
+      () =>
+        console.log(
+          'TCL: App -> this.state.currentItem',
+          this.state.currentItem
+        )
+    );
   };
+
+  deleteItem = key => {
+    const filteredItems = this.state.todo.filter(item => {
+      return item.key !== key;
+    });
+    this.setState({
+      todo: filteredItems
+    });
+
+    data.todo = filteredItems;
+    localStorage.setItem('todoList', JSON.stringify(data));
+  };
+
+  doneItem = key => {
+    const findItem = this.state.todo.find(item => {
+      return item.key === key;
+    });
+    findItem.isDone ? (findItem.isDone = false) : (findItem.isDone = true);
+    const filteredItems = this.state.todo.filter(item => {
+      return item.key !== key;
+    });
+
+    this.setState({
+      todo: [findItem, ...filteredItems]
+    });
+
+    data.todo = [findItem, ...filteredItems];
+    localStorage.setItem('todoList', JSON.stringify(data));
+  };
+
+  nowItem = key => {
+    const findItem = this.state.todo.find(item => {
+      return item.key === key;
+    });
+    const filteredItems = this.state.todo.filter(item => {
+      return item.key !== key;
+    });
+
+    this.setState({
+      todo: [findItem, ...filteredItems],
+      nowTask: findItem
+    });
+
+    data.todo = [findItem, ...filteredItems];
+    localStorage.setItem('todoList', JSON.stringify(data));
+    console.log(key, data.todo);
+  };
+
+  validContent = text => {
+    return this.state.todo.some(item => item.text === text);
+  };
+
+  addItem = e => {
+    e.preventDefault();
+    const newItem = this.state.currentItem;
+    if (newItem.text.trim() === '') {
+      this.setState({
+        errorText: '* 請輸入內容'
+      });
+      return;
+    }
+    if (this.validContent(newItem.text)) {
+      this.setState({
+        errorText: '* 內容重複'
+      });
+      return;
+    }
+    console.log(newItem, this.state.todo, this.state);
+    const items = [...this.state.todo, newItem];
+    this.setState({
+      todo: items,
+      currentItem: { text: '', key: '' },
+      errorText: ''
+    });
+
+    data.todo.push(newItem);
+    localStorage.setItem('todoList', JSON.stringify(data));
+
+    console.log(data);
+  };
+
+  onFinish = working => {
+    console.log('Finish');
+    if(working){
+      const newTomatos = this.state.nowTask.usedTomato?this.state.nowTask.usedTomato+1:1;
+      const nowkey = this.state.nowTask.key;
+      const findItem = this.state.todo.find(item => {
+        return item.key === nowkey;
+      });
+
+      findItem.usedTomato = newTomatos;
   
+      // this.setState({
+      //   todo: [findItem, ...filteredItems]
+      // });
+  
+      // data.todo = [findItem, ...filteredItems];
+      // localStorage.setItem('todoList', JSON.stringify(data));
+
+
+      // this.setState({ 
+      //   takeBreak: working,
+      //   nowTask: {usedTomato: newTomatos}
+      // });
+      console.log(this.state.nowTask.usedTomato,findItem)
+    }
+    this.setState({ takeBreak: working });
+  };
+
   render() {
     return (
       <Container>
-        <TodoListContainer getTaskNow={this.getTaskNow} taskNowCheck={this.state.taskNowCheck}/>
+        <TodoListContainer
+          data={this.state.todo}
+          addItem={this.addItem}
+          deleteItem={this.deleteItem}
+          doneItem={this.doneItem}
+          nowItem={this.nowItem}
+          handleInput={this.handleInput}
+          currentItem={this.state.currentItem}
+          errorText={this.state.errorText}
+        />
         <MainBox>
           <Tomato
             size={12}
@@ -71,7 +249,10 @@ class MainContainer extends React.PureComponent {
           />
           <TakeBreak hidden={!this.state.takeBreak} />
           <Timer onFinish={this.onFinish} />
-          <TaskNow data={this.state.taskNow} doneItem={this.doneItem}/>
+          <TaskNow
+            data={this.state.nowTask}
+            doneItem={() => this.doneItem(this.state.nowTask.key)}
+          />
         </MainBox>
         <ChartContainer />
         <SettingContainer />

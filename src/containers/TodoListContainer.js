@@ -36,154 +36,23 @@ const Todo = styled.div`
   `}
 `;
 
-const MOCK_DONE = [
-  {
-    key: 130,
-    text: 'Task 1 ContnetText',
-    isDone: false
-  },
-  {
-    key: 131,
-    text: 'Task 2 ContnetText',
-    usedTomato: 3,
-    isDone: true
-  },
-  {
-    key: 132,
-    text: 'Task 3 ContnetText',
-    usedTomato: 5,
-    isDone: true
-  },
-  {
-    key: 133,
-    text: 'Task 4 ContnetText',
-    usedTomato: 1,
-    isDone: true
-  }
-];
+const TodoListBox= styled(TodoList)`
+  height: auto;
+  min-height: 40%;
+`;
 
-const data = localStorage.getItem('todoList')
-  ? JSON.parse(localStorage.getItem('todoList'))
-  : {
-    todo: [...MOCK_DONE]
-  };
+const TodoListContent = styled.div`
+  overflow-y: auto;
+`;
 
 class TodoListContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      type: 'add',
-      todo: [...data.todo],
-      currentItem: { text: '', key: '' },
-      errorText: '',
-      nowTask: {}
+      type: 'add'
     };
   }
-
-  getTask = () => {
-    const { getTaskNow } = this.props;
-    this.setState({ nowTask: this.getFirstUndone() });
-    getTaskNow(this.getFirstUndone());
-  }
-
-  getFirstUndone() {
-    const undoItem = this.state.todo.find(item => item.isDone ? '' : item);
-    return undoItem ? undoItem : { text: '請點擊左下角按鈕新增任務' };
-  }
-
-  handleInput = e => {
-    const itemText = e.target.value;
-    const currentItem = { text: itemText, key: Date.now() };
-    console.log('TCL: App -> currentItem', currentItem);
-    this.setState(
-      state => ({ ...state, currentItem }),
-      () =>
-        console.log(
-          'TCL: App -> this.state.currentItem',
-          this.state.currentItem
-        )
-    );
-  };
-
-  validContent = text => {
-    return this.state.todo.some(item => item.text === text);
-  };
-
-  deleteItem = key => {
-    const filteredItems = this.state.todo.filter(item => {
-      return item.key !== key;
-    });
-    this.setState({
-      todo: filteredItems
-    });
-
-    data.todo = filteredItems;
-    localStorage.setItem('todoList', JSON.stringify(data));
-  };
-
-  doneItem = key => {
-    const findItem = this.state.todo.find(item => {
-      return item.key === key
-    });
-    findItem.isDone ? (findItem.isDone = false) : (findItem.isDone = true);
-    const filteredItems = this.state.todo.filter(item => {
-      return item.key !== key;
-    });
-
-    this.setState({
-      todo: [findItem, ...filteredItems]
-    });
-
-    data.todo = [findItem, ...filteredItems];
-    localStorage.setItem('todoList', JSON.stringify(data));
-  };
-
-  nowItem = key => {
-    const findItem = this.state.todo.find(item => {
-      return item.key === key
-    });
-    const filteredItems = this.state.todo.filter(item => {
-      return item.key !== key;
-    });
-
-    this.setState({
-      todo: [findItem, ...filteredItems]
-    });
-
-    data.todo = [findItem, ...filteredItems];
-    localStorage.setItem('todoList', JSON.stringify(data));
-    console.log(key, data.todo);
-  };
-
-  addItem = e => {
-    e.preventDefault();
-    const newItem = this.state.currentItem;
-    if (newItem.text.trim() === '') {
-      this.setState({
-        errorText: '* 請輸入內容'
-      });
-      return;
-    }
-    if (this.validContent(newItem.text)) {
-      this.setState({
-        errorText: '* 內容重複'
-      });
-      return;
-    }
-    console.log(newItem, this.state.todo, this.state);
-    const items = [...this.state.todo, newItem];
-    this.setState({
-      todo: items,
-      currentItem: { text: '', key: '' },
-      errorText: ''
-    });
-
-    data.todo.push(newItem);
-    localStorage.setItem('todoList', JSON.stringify(data));
-
-    console.log(data);
-  };
 
   onOpanClick = () => {
     this.setState({
@@ -194,51 +63,56 @@ class TodoListContainer extends React.PureComponent {
 
   render() {
     return (
-      <React.Fragment >
-        <FabButtonTodo outLine onClick={this.onOpanClick} >
+      <React.Fragment>
+        <FabButtonTodo outLine onClick={this.onOpanClick}>
           <AniIcon type={this.state.type} />
         </FabButtonTodo>
-        <Todo open={this.state.open} >
-          <TodoList title={'TodoList'} getTaskNow={this.getTask()} >
-            {this.state.todo.map(item => {
-              return (
-                item.isDone ?
-                  '' : <TodoItems
-                    title={item.text}
-                    tomatos={item.usedTomato}
-                    key={item.key}
-                    deleteItem={() => this.deleteItem(item.key)}
-                    doneItem={() => this.doneItem(item.key)}
-                    nowItem={() => this.nowItem(item.key)}
-                    checked={false}
-                    nowTask={this.state.nowTask.key === item.key ? true : false}
-                  />
-              );
-            })}
-            <AddNewTask
-              addItem={this.addItem}
-              inputElement={this.inputElement}
-              handleInput={this.handleInput}
-              currentItem={this.state.currentItem}
-              errorText={this.state.errorText}
-            />
-          </TodoList>
-          <TodoList title={'Done'}>
-            {this.state.todo.map(item => {
-              return (
-                item.isDone ?
+        <Todo open={this.state.open}>
+          <TodoListBox title={'TodoList'}>
+            <TodoListContent>
+              {this.props.data.map(item => {
+                return item.isDone ? (
+                  ''
+                ) : (
                   <TodoItems
                     title={item.text}
                     tomatos={item.usedTomato}
                     key={item.key}
-                    deleteItem={() => this.deleteItem(item.key)}
-                    doneItem={() => this.doneItem(item.key)}
+                    deleteItem={() => this.props.deleteItem(item.key)}
+                    doneItem={() => this.props.doneItem(item.key)}
+                    nowItem={() => this.props.nowItem(item.key)}
+                    checked={false}
+                  />
+                );
+              })}
+            </TodoListContent>
+            <AddNewTask
+              addItem={this.props.addItem}
+              inputElement={this.inputElement}
+              handleInput={this.props.handleInput}
+              currentItem={this.props.currentItem}
+              errorText={this.props.errorText}
+            />
+          </TodoListBox>
+          <TodoListBox title={'Done'}>
+            <TodoListContent>
+              {this.props.data.map(item => {
+                return item.isDone ? (
+                  <TodoItems
+                    title={item.text}
+                    tomatos={item.usedTomato}
+                    key={item.key}
+                    deleteItem={() => this.props.deleteItem(item.key)}
+                    doneItem={() => this.props.doneItem(item.key)}
                     btnType='up'
                     checked={true}
-                  /> : ''
-              );
-            })}
-          </TodoList>
+                  />
+                ) : (
+                  ''
+                );
+              })}
+            </TodoListContent>
+          </TodoListBox>
         </Todo>
       </React.Fragment>
     );

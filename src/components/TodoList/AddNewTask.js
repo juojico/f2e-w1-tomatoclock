@@ -36,15 +36,11 @@ const ErrorText = styled.div`
 `;
 
 class AddNewTask extends React.PureComponent {
-  componentDidUpdate() {
-    // this.props.inputElement.current.focus();
-  }
   render() {
     return (
       <form onSubmit={this.props.addItem}>
         <AddItemsWrapper>
           <TaskInput
-            ref={this.props.inputElement}
             value={this.props.currentItem.text}
             onChange={this.props.handleInput}
           />

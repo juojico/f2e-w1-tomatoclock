@@ -11,6 +11,16 @@ const TodoItemsWrapper = styled.div`
   width: 100%;
   padding: 12px;
   border-top: 1px solid #666;
+  &:nth-child(1) button:nth-child(3) {
+    font-size: 1.25em;
+    padding: 0 6px;
+    pointer-events: none;
+    div {
+      &::before, &::after {
+        border-left-color: #f05550;
+      }
+    }
+  }
 `;
 
 const TaskTitle = styled.span`
@@ -24,15 +34,15 @@ const TaskBtn = styled(FabButton)`
   font-size: 1em;
   padding: 8px;
   margin: 0;
-  ${props => props.nowTask ? `
-    font-size: 1.25em;
-    padding: 0 6px;
-    pointer-events: none;
-  ` : ''};
 `;
 
-const BtnBox = styled.div`
-
+const TaskBtnPlay = styled(TaskBtn)`
+  font-size: 1em;
+  padding: 8px;
+  margin: 0;
+  &:nth-child(1) {
+    color: #f05550;
+  }
 `;
 
 const UsedTomatoBox = styled.div`
@@ -63,7 +73,7 @@ const makeTomatos = data => {
   )
 }
 
-const TodoItems = ({ children, title, tomatos, deleteItem, doneItem, nowItem, btnType = 'play', checked = false, nowTask = false, ...props }) => {
+const TodoItems = ({ children, title, tomatos, deleteItem, doneItem, nowItem, btnType = 'play', checked = false, ...props }) => {
 
   return (
     <TodoItemsWrapper {...props}>
@@ -71,7 +81,7 @@ const TodoItems = ({ children, title, tomatos, deleteItem, doneItem, nowItem, bt
       <UsedTomatoBox>
         {makeTomatos(tomatos)}
       </UsedTomatoBox>
-      <BtnBox>
+      <div>
         <TaskBtn outLine onClick={deleteItem}>
           <AniIcon type={'delete'} color='darkgrey'></AniIcon>
         </TaskBtn>
@@ -79,11 +89,11 @@ const TodoItems = ({ children, title, tomatos, deleteItem, doneItem, nowItem, bt
           <AniIcon type={'check'} color={checked ? '#30ff50' : 'darkgrey'}></AniIcon>
         </TaskBtn>
         {checked ? '':
-        <TaskBtn outLine nowTask={nowTask} onClick={nowItem}>
-          <AniIcon type={btnType} color={nowTask ? '#f05550' : 'darkgrey'}></AniIcon>
-        </TaskBtn>
+        <TaskBtnPlay outLine onClick={nowItem}>
+          <AniIcon type={btnType}></AniIcon>
+        </TaskBtnPlay>
         }
-      </BtnBox>
+      </div>
     </TodoItemsWrapper>
   );
 }
