@@ -61,7 +61,7 @@ const TaskNow = ({ data, doneItem, ...props }) => {
         <TaskTitle>
           {data.text}
         </TaskTitle>
-        <FabButton outLine onClick={doneItem}>
+        <FabButton outLine onClick={doneItem} small>
           <AniIcon type={'check'} color='darkgrey'></AniIcon>
         </FabButton>
       </TaskContent>

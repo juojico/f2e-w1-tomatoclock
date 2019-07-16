@@ -60,6 +60,18 @@ const iconType = (typeName, color) => {
           transform: rotate(90deg);
         }
       `
+    case 'back':
+      return `
+        &::before,&::after {
+          ${defaultIconType}
+          left: -30%;
+          border: .5em solid transparent;
+          border-left-width: .6em;
+          border-right-width: 0;
+          border-left-color: ${color};
+          transform: rotate(180deg);
+        }
+      `
     case 'skip':
       return `
         &::before,&::after {

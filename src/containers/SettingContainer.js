@@ -56,6 +56,7 @@ class SettingContainer extends React.PureComponent {
         <Setting hidden={!this.state.open}>
           <Panel>
             <PanelHeader>SettingContainer</PanelHeader>
+            <h3>提醒方式</h3>
           </Panel>
         </Setting>
         <SettingWrapper hidden={!this.state.open} onClick={this.onOpanClick}>

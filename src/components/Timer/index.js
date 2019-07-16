@@ -15,6 +15,7 @@ const TimerWrapper = styled.div`
   margin-top: -4em;
   border: 2px solid ${props=>props.takeBreak?'#40bfdf':'#f05550'};
   border-radius: 100%;
+  box-shadow: inset 0 0 20px ${props=>props.takeBreak?'rgba(32,200,240,.5)':'rgba(255,32,32,.5)'}, 0 0 40px ${props=>props.takeBreak?'rgba(32,200,240,.5)':'rgba(255,32,32,.5)'};
 `;
 
 const TimerClock = styled.h1`
