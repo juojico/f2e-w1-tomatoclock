@@ -13,16 +13,16 @@ const TimerWrapper = styled.div`
   justify-content: center;
   padding: 2em;
   margin-top: -4em;
-  border: 2px solid ${props=>props.takeBreak?'#40bfdf':'#f05550'};
+  border: 2px solid ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor};
   border-radius: 100%;
-  box-shadow: inset 0 0 20px ${props=>props.takeBreak?'rgba(32,200,240,.5)':'rgba(255,32,32,.5)'}, 0 0 40px ${props=>props.takeBreak?'rgba(32,200,240,.5)':'rgba(255,32,32,.5)'};
+  box-shadow: inset 0 0 20px ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor}, 0 0 40px ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor};
 `;
 
 const TimerClock = styled.h1`
   position: relative;
   width: 100%;
   font-weight: normal;
-  color: ${props=>props.takeBreak?'#40bfdf':'#f05550'};
+  color: ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor};
   font-size: 5em;
   margin: 0;
   div>span.big {
@@ -95,7 +95,6 @@ class Timer extends React.PureComponent {
 
   takeBreak() {
     this.setState({ seconds: 300, takeBreak: true, iconTypeStop: 'stop', onStart: true });
-    console.log('takeBreak');
     this.play();
   }
 

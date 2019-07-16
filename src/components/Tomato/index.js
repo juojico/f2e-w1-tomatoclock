@@ -11,8 +11,8 @@ const TomatoBody = styled.div`
   position: relative;
   width: ${props=>props.size * 12}px;
   height: ${props=>props.size * 11}px;
-  background-color: #f05550;
-  border: 10px solid #e04540;
+  background-color: ${props=>props.theme.primaryColor};
+  border: 10px solid ${props=>props.theme.primaryColorDark};
   border-width: ${props=>props.size<10?'1px 2px 3px 1px':'4px 8px 10px 4px'};
   border-radius: 90% 100%;
   animation: ${tomatoRoll} 1s alternate infinite;

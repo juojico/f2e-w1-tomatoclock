@@ -66,10 +66,16 @@ const ChartTable = styled.div`
 `;
 
 const ChartBar = styled.div`
+  box-sizing: border-box;
   position: relative;
   width: 6%;
   height: ${props => props.values}0%;
   background-color: #f05550;
+  opacity: 0.8;
+  transition: .2s;
+  &:hover {
+    opacity: 1;
+  }
   &:last-child {
     background-color: #f0b570;
   }
@@ -117,7 +123,6 @@ const thisWeekly = Object.keys(MOCK_DATA).slice(
   totalList.length - 7,
   totalList.length
 );
-console.log('TCL: weekly', thisWeekly);
 const weeklySum = weekly.reduce((a, b) => a + b);
 const totalSum = totalList.reduce((a, b) => a + b);
 
@@ -170,7 +175,7 @@ class ChartContainer extends React.PureComponent {
             <ChartTable>
               {weekly.map((item, index) => {
                 return (
-                  <ChartBar values={item}>
+                  <ChartBar values={item} key={`weekly${index}`}>
                     <span>{item}</span>
                     <div>{thisWeekly[index].slice(6, 8)}</div>
                   </ChartBar>

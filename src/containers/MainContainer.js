@@ -9,7 +9,7 @@ import SettingContainer from '../containers/SettingContainer';
 import TodoListContainer from '../containers/TodoListContainer';
 
 const Container = styled.div`
-  background-color: #282c34;
+  background-color: ${props=>props.theme.backgroundColor};
   height: 100vh;
   min-height: 700px;
   min-width: 300px;
@@ -18,7 +18,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: white;
+  color: ${props=>props.theme.fontColor};
   text-align: center;
 `;
 
@@ -32,7 +32,7 @@ const MainBox = styled.div`
   justify-content: center;
   flex-grow: 1;
   font-size: 1rem;
-  color: white;
+  color: ${props=>props.theme.fontColor};
   text-align: center;
 `;
 
@@ -90,34 +90,35 @@ class MainContainer extends React.PureComponent {
 
   getFirstUndone() {
     const undoItem = this.state.todo.find(item => (item.isDone ? '' : item));
-    console.log(
-      'TCL: TodoListContainer -> getFirstUndone -> undoItem',
-      undoItem
-    );
-    if(undoItem) {
+    if (undoItem) {
       this.setState({
         nowTask: undoItem
       });
     } else {
       this.setState({
-        todo: [...this.state.todo,{text: '請先新增todo', key: 'default', usedTomato: 0, isDone: false}],
-        nowTask: {text: '請先新增todo', key: 'default',usedTomato: 0, isDone: false}
+        todo: [
+          ...this.state.todo,
+          { text: '請先新增todo', key: 'default', usedTomato: 0, isDone: false }
+        ],
+        nowTask: {
+          text: '請先新增todo',
+          key: 'default',
+          usedTomato: 0,
+          isDone: false
+        }
       });
     }
   }
 
   handleInput = e => {
     const itemText = e.target.value;
-    const currentItem = { text: itemText, key: Date.now(),usedTomato: 0, isDone: false };
-    console.log('TCL: App -> currentItem', currentItem);
-    this.setState(
-      state => ({ ...state, currentItem }),
-      () =>
-        console.log(
-          'TCL: App -> this.state.currentItem',
-          this.state.currentItem
-        )
-    );
+    const currentItem = {
+      text: itemText,
+      key: Date.now(),
+      usedTomato: 0,
+      isDone: false
+    };
+    this.setState(state => ({ ...state, currentItem }));
   };
 
   deleteItem = key => {
@@ -164,7 +165,6 @@ class MainContainer extends React.PureComponent {
 
     data.todo = [findItem, ...filteredItems];
     localStorage.setItem('todoList', JSON.stringify(data));
-    console.log(key, data.todo);
   };
 
   validContent = text => {
@@ -186,7 +186,6 @@ class MainContainer extends React.PureComponent {
       });
       return;
     }
-    console.log(newItem, this.state.todo, this.state);
     const items = [...this.state.todo, newItem];
     this.setState({
       todo: items,
@@ -196,34 +195,19 @@ class MainContainer extends React.PureComponent {
 
     data.todo.push(newItem);
     localStorage.setItem('todoList', JSON.stringify(data));
-
-    console.log(data);
   };
 
   onFinish = working => {
-    console.log('Finish');
-    if(working){
-      const newTomatos = this.state.nowTask.usedTomato?this.state.nowTask.usedTomato+1:1;
+    if (working) {
+      const newTomatos = this.state.nowTask.usedTomato
+        ? this.state.nowTask.usedTomato + 1
+        : 1;
       const nowkey = this.state.nowTask.key;
       const findItem = this.state.todo.find(item => {
         return item.key === nowkey;
       });
 
       findItem.usedTomato = newTomatos;
-  
-      // this.setState({
-      //   todo: [findItem, ...filteredItems]
-      // });
-  
-      // data.todo = [findItem, ...filteredItems];
-      // localStorage.setItem('todoList', JSON.stringify(data));
-
-
-      // this.setState({ 
-      //   takeBreak: working,
-      //   nowTask: {usedTomato: newTomatos}
-      // });
-      console.log(this.state.nowTask.usedTomato,findItem)
     }
     this.setState({ takeBreak: working });
   };
@@ -255,7 +239,7 @@ class MainContainer extends React.PureComponent {
           />
         </MainBox>
         <ChartContainer />
-        <SettingContainer />
+        <SettingContainer onChangeTheme={this.props.onChangeTheme} />
       </Container>
     );
   }

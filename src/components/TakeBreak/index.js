@@ -13,8 +13,8 @@ const TakeBreakBody = styled.div`
   position: relative;
   width: 140px;
   height: 130px;
-  background-color: #40bfdf;
-  border: 10px solid #40e0e0;
+  background-color: ${props=>props.theme.secondaryColor};
+  border: 10px solid ${props=>props.theme.secondaryColorDark};
   border-width: 4px 8px 10px 4px;
   border-radius: 100% 100% 87% 87%;
   animation: ${TakeBreakRoll} 1s alternate infinite;

@@ -8,7 +8,7 @@ const PanelBody = styled.div`
   flex-grow: 1;
   width: 100%;
   height: 100%;
-  background-color: #282c34;
+  background-color: ${props=>props.theme.backgroundColor};
   padding: 24px;
   overflow: hidden;
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import AniIcon from '../components/Icons';
 import { breakpoint } from '../themes/mixins';
-import { FabButton } from '../components/Buttons';
+import { FabButton, Button } from '../components/Buttons';
 import { Panel, PanelHeader } from '../components/Panel';
 
 const FabButtonTodo = styled(FabButton)`
@@ -22,14 +22,18 @@ const SettingWrapper = styled.div`
   z-index: 11;
 `;
 
+const ButtonBox = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 const Setting = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-width: 300px;
-  height: 50%;
+  top: 50%;
+  left: 50%;
+  width: 300px;
   background-color: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%); 
   z-index: 12;
   ${breakpoint.down('m')`
     height: 100%;
@@ -57,6 +61,12 @@ class SettingContainer extends React.PureComponent {
           <Panel>
             <PanelHeader>SettingContainer</PanelHeader>
             <h3>提醒方式</h3>
+            <input type='radio'></input>
+            <h3>主題色彩</h3>
+            <ButtonBox>
+            <Button onClick={()=>this.props.onChangeTheme('LightTheme')}>LightTheme</Button>
+            <Button onClick={()=>this.props.onChangeTheme('DarkTheme')}>DarkTheme</Button>
+            </ButtonBox>
           </Panel>
         </Setting>
         <SettingWrapper hidden={!this.state.open} onClick={this.onOpanClick}>

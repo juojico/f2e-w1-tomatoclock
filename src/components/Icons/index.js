@@ -21,7 +21,7 @@ const iconType = (typeName, color) => {
           border-right-width: 0;
           border-left-color: ${color};
         }
-      `
+      `;
     case 'pause':
       return `
         &::before,&::after {
@@ -35,7 +35,7 @@ const iconType = (typeName, color) => {
         &::after {
           left: 65%;
         }
-      `
+      `;
     case 'up':
       return `
         &::before,&::after {
@@ -47,7 +47,7 @@ const iconType = (typeName, color) => {
           border-left-color: ${color};
           transform: rotate(-90deg);
         }
-      `
+      `;
     case 'down':
       return `
         &::before,&::after {
@@ -59,7 +59,7 @@ const iconType = (typeName, color) => {
           border-left-color: ${color};
           transform: rotate(90deg);
         }
-      `
+      `;
     case 'back':
       return `
         &::before,&::after {
@@ -71,7 +71,7 @@ const iconType = (typeName, color) => {
           border-left-color: ${color};
           transform: rotate(180deg);
         }
-      `
+      `;
     case 'skip':
       return `
         &::before,&::after {
@@ -87,7 +87,7 @@ const iconType = (typeName, color) => {
           border-left-color: ${color};
           transform: rotate(135deg) scale(0.5);
         }
-      `
+      `;
     case 'restart':
       return `
         &::before,&::after {
@@ -103,7 +103,7 @@ const iconType = (typeName, color) => {
           border-left-color: ${color};
           transform: rotate(45deg) scale(0.5);
         }
-      `
+      `;
     case 'stop':
       return `
         &::before,&::after {
@@ -114,7 +114,7 @@ const iconType = (typeName, color) => {
           left: 20%;
           background-color: ${color};
         }
-      `
+      `;
     case 'add':
       return `
         &::before,&::after {
@@ -126,7 +126,7 @@ const iconType = (typeName, color) => {
         &::after {
           transform: rotate(90deg);
         }
-      `
+      `;
     case 'delete':
       return `
         &::before,&::after {
@@ -139,7 +139,7 @@ const iconType = (typeName, color) => {
         &::after {
           transform: rotate(-45deg);
         }
-      `
+      `;
     case 'check':
       return `
         &::before,&::after {
@@ -157,7 +157,7 @@ const iconType = (typeName, color) => {
           left: 12%;
           transform: rotate(-45deg);
         }
-      `
+      `;
     case 'uncheck':
       return `
         &::before,&::after {
@@ -167,7 +167,7 @@ const iconType = (typeName, color) => {
           border: .1em solid ${color};
           border-radius: 100%;
         }
-      `
+      `;
     case 'setting':
       return `
         &::before,&::after {
@@ -182,7 +182,7 @@ const iconType = (typeName, color) => {
           left: 10%;
           border: .25em solid ${color};
         }
-      `
+      `;
     case 'chart':
       return `
         &::before,&::after {
@@ -202,7 +202,7 @@ const iconType = (typeName, color) => {
           border-left: none;
           border-bottom: .05em solid ${color};
         }
-      `
+      `;
     default:
       return `
           &::before,&::after {
@@ -214,9 +214,8 @@ const iconType = (typeName, color) => {
             border-radius: 100%;
             background-color: ${color};
           }
-        `
+        `;
   }
-  
 };
 
 const defaultIconType = `
@@ -238,9 +237,14 @@ const defaultIconType = `
 `;
 
 const AniIcon = ({ color = 'white', type = 'play', hidden, ...props }) => {
-  
   return (
-    <Icon color={color} typeName={type} hidden={hidden} iconType={iconType(type, color)} {...props} />
+    <Icon
+      color={color}
+      typeName={type}
+      hidden={hidden}
+      iconType={iconType(type, color)}
+      {...props}
+    />
   );
 };
 

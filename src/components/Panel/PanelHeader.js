@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const PanelHead = styled.h2`
   width: 100%;
-  color: white;
   text-align: center;
 `;
 

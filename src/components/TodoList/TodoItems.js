@@ -10,14 +10,14 @@ const TodoItemsWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 12px;
-  border-top: 1px solid #666;
+  border-top: 1px solid ${props=>props.theme.borderColor};
   &:nth-child(1) button:nth-child(3) {
     font-size: 1.25em;
     padding: 0 6px;
     pointer-events: none;
     div {
       &::before, &::after {
-        border-left-color: #f05550;
+        border-left-color: ${props=>props.theme.primaryColor};
       }
     }
   }
@@ -40,8 +40,9 @@ const TaskBtnPlay = styled(TaskBtn)`
   font-size: 1em;
   padding: 8px;
   margin: 0;
+  background-color: transparent;
   &:nth-child(1) {
-    color: #f05550;
+    color: ${props=>props.theme.primaryColor};
   }
 `;
 
@@ -59,7 +60,7 @@ const Tomatos = styled.div`
   height: .5em;
   border-radius: 100%;
   margin: 2px;
-  background-color: #f05550;
+  background-color: ${props=>props.theme.primaryColor};
 `
 const makeTomatos = data => {
   let elements = [];
@@ -86,7 +87,7 @@ const TodoItems = ({ children, title, tomatos, deleteItem, doneItem, nowItem, bt
           <AniIcon type={'delete'} color='darkgrey'></AniIcon>
         </TaskBtn>
         <TaskBtn outLine onClick={doneItem}>
-          <AniIcon type={'check'} color={checked ? '#30ff50' : 'darkgrey'}></AniIcon>
+          <AniIcon type={'check'} color={checked ? '#50af33' : 'darkgrey'}></AniIcon>
         </TaskBtn>
         {checked ? '':
         <TaskBtnPlay outLine onClick={nowItem}>

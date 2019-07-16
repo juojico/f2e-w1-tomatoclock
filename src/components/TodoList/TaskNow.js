@@ -13,7 +13,6 @@ const TaskNowWrapper = styled.div`
 const TaskContent = styled.div`
   box-sizing: border-box;  
   width: 100%;
-  color: white;
   padding: .25em;
   border-top: 1px solid #666;
   border-bottom: 1px solid #666;
@@ -23,7 +22,6 @@ const TaskContent = styled.div`
 `;
 
 const TaskTitle = styled.div`
-  color: white;
   font-size: 2em;
   padding: .25em;
 `;

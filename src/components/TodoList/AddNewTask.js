@@ -11,7 +11,6 @@ const AddItemsWrapper = styled.div`
   justify-content: center;
   width: 100%;
   padding: 12px;
-  border-top: 1px solid #666;
 `;
 
 const TaskInput = styled.input`
@@ -32,7 +31,7 @@ const ErrorText = styled.div`
   text-align: left;
   margin-left: 12px;
   margin-top: -12px;
-  color: #f05550;
+  color: ${props=>props.theme.primaryColor};
 `;
 
 class AddNewTask extends React.PureComponent {
