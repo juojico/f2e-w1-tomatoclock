@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import AniIcon from '../components/Icons';
-import { breakpoint } from '../themes/mixins';
 import RadioInput from '../components/Input/RadioInput';
-import { FabButton, Button } from '../components/Buttons';
-import { Panel, PanelHeader } from '../components/Panel';
+import { FabButton } from '../components/Buttons';
+import { Panel } from '../components/Panel';
 
 const FabButtonTodo = styled(FabButton)`
   position: absolute;
@@ -21,11 +20,6 @@ const SettingWrapper = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 30;
-`;
-
-const ButtonBox = styled.div`
-  width: 100%;
-  display: flex;
 `;
 
 const Setting = styled.div`
@@ -61,10 +55,10 @@ class SettingContainer extends React.PureComponent {
         <Setting hidden={!this.state.open}>
           <Panel>
             <h3>提醒方式</h3>
-            <RadioInput name='alertType' value='type1' text='type1'/>
+            <RadioInput name='alertType' value='type1' text='type1' checked/>
             <RadioInput name='alertType' value='type2' text='type2'/>
             <h3>主題色彩</h3>
-            <RadioInput name='themeType' value='DarkTheme' text='DarkTheme' onClick={() => this.props.onChangeTheme('DarkTheme')}/>
+            <RadioInput name='themeType' value='DarkTheme' text='DarkTheme' onClick={() => this.props.onChangeTheme('DarkTheme')} checked={this.props.theme==='DarkTheme'?true:false}/>
             <RadioInput name='themeType' value='LightTheme' text='LightTheme' onClick={() => this.props.onChangeTheme('LightTheme')}/>
           </Panel>
         </Setting>

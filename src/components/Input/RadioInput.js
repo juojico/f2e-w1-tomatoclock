@@ -33,10 +33,10 @@ const RadioInput = ({ text, name, value, onClick, checked, ...props }) => {
         name={name}
         value={value}
         id={'radio' + value}
-        checked={checked}
+        defaultChecked={checked}
         hidden
       />
-      <IconsBtn type='circle' for={'radio' + value} />
+      <IconsBtn type='circle' htmlFor={'radio' + value} />
       {text}
     </Label>
   );

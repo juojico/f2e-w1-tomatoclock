@@ -9,7 +9,7 @@ import SettingContainer from '../containers/SettingContainer';
 import TodoListContainer from '../containers/TodoListContainer';
 
 const Container = styled.div`
-  background-color: ${props=>props.theme.backgroundColor};
+  background-color: ${props => props.theme.backgroundColor};
   height: 100vh;
   min-height: 700px;
   min-width: 300px;
@@ -18,7 +18,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: ${props=>props.theme.fontColor};
+  color: ${props => props.theme.fontColor};
   text-align: center;
 `;
 
@@ -32,7 +32,7 @@ const MainBox = styled.div`
   justify-content: center;
   flex-grow: 1;
   font-size: 1rem;
-  color: ${props=>props.theme.fontColor};
+  color: ${props => props.theme.fontColor};
   text-align: center;
 `;
 
@@ -63,6 +63,19 @@ const MOCK_DONE = [
   }
 ];
 
+const TOMATOSAYS = [
+  '加油！離目標不遠了',
+  '你喜歡蕃茄醬嗎？',
+  '你覺得我的紅色好看嗎？',
+  '你喜歡番茄雞蛋麵嗎？',
+  '番茄牛肉鍋食譜：牛肋條 500g, 牛番茄 3大顆, 醬油 50cc, 豆瓣醬 20ml, 月桂葉 數片, 八角 2.3顆, 蔥段 2根, 糖 10g',
+  '要吃番茄義大利麵嗎？',
+  '瑪格麗特披薩好吃哦',
+  '晚餐吃義式蕃茄燉牛肉吧～',
+  '我喜歡漢堡裡加番茄',
+  '鮪魚蛋番茄盅：中小型牛番茄 6個, 罐頭鮪魚肉 50g, 蛋 1個, 鹽/白胡椒粉 適量'
+];
+
 const data = localStorage.getItem('todoList')
   ? JSON.parse(localStorage.getItem('todoList'))
   : { todo: [...MOCK_DONE] };
@@ -72,7 +85,8 @@ class MainContainer extends React.PureComponent {
     super(props);
     this.state = {
       takeBreak: false,
-      tomatoSays: `Hi! I'm TOMATO!`,
+      tomatoSays: '嗨！我是番茄',
+      sayType: false,
       todo: [...data.todo],
       currentItem: { text: '', key: '' },
       errorText: '',
@@ -212,6 +226,12 @@ class MainContainer extends React.PureComponent {
     this.setState({ takeBreak: working });
   };
 
+  tomatoSay = () => {
+    const SAYWHAT = TOMATOSAYS[Math.floor(Math.random() * TOMATOSAYS.length)];
+    const sayType = Math.random() > 0.5 ? true : false;
+    this.setState({ tomatoSays: SAYWHAT, sayType });
+  };
+
   render() {
     return (
       <Container>
@@ -230,16 +250,20 @@ class MainContainer extends React.PureComponent {
             size={12}
             text={this.state.tomatoSays}
             hidden={this.state.takeBreak}
+            sayType={this.state.sayType}
           />
           <TakeBreak hidden={!this.state.takeBreak} />
-          <Timer onFinish={this.onFinish} />
+          <Timer onFinish={this.onFinish} onSay={this.tomatoSay} />
           <TaskNow
             data={this.state.nowTask}
             doneItem={() => this.doneItem(this.state.nowTask.key)}
           />
         </MainBox>
         <ChartContainer />
-        <SettingContainer onChangeTheme={this.props.onChangeTheme} />
+        <SettingContainer
+          onChangeTheme={this.props.onChangeTheme}
+          theme={this.props.theme}
+        />
       </Container>
     );
   }

@@ -9,11 +9,12 @@ const tomatoRoll = keyframes`
 
 const TomatoBody = styled.div`
   position: relative;
-  width: ${props=>props.size * 12}px;
-  height: ${props=>props.size * 11}px;
-  background-color: ${props=>props.theme.primaryColor};
-  border: 10px solid ${props=>props.theme.primaryColorDark};
-  border-width: ${props=>props.size<10?'1px 2px 3px 1px':'4px 8px 10px 4px'};
+  width: ${props => props.size * 12}px;
+  height: ${props => props.size * 11}px;
+  background-color: ${props => props.theme.primaryColor};
+  border: 10px solid ${props => props.theme.primaryColorDark};
+  border-width: ${props =>
+    props.size < 10 ? '1px 2px 3px 1px' : '4px 8px 10px 4px'};
   border-radius: 90% 100%;
   animation: ${tomatoRoll} 1s alternate infinite;
   ::before {
@@ -65,14 +66,23 @@ const Leaves = styled.div`
 
 const TomatoSay = styled.div`
   position: absolute;
-  font-size: ${(props=>props.text).length>20?'1em':'1.5em'};
+  font-size: ${(props => props.text).length > 10 ? '1em' : '1.25em'};
   width: 100%;
   top: -20%;
-  left: 90%;
-  transform: rotate(-30deg);
+  left: 100%;
+  transform: rotate(-25deg);
 `;
 
-const Tomato = ({ size='2', text, ...props }) => {
+const TomatoSayL = styled.div`
+  position: absolute;
+  font-size: ${(props => props.text).length > 10 ? '1em' : '1.25em'};
+  width: 100%;
+  top: -20%;
+  left: -100%;
+  transform: rotate(25deg);
+`;
+
+const Tomato = ({ size = '2', text, sayType = false, ...props }) => {
   return (
     <TomatoBody size={size} {...props}>
       <Leaves />
@@ -80,7 +90,7 @@ const Tomato = ({ size='2', text, ...props }) => {
       <Leaves />
       <Leaves />
       <Leaves />
-      <TomatoSay>{text}</TomatoSay>
+      {sayType ? (<TomatoSayL>{text}</TomatoSayL>) : (<TomatoSay>{text}</TomatoSay>)}
     </TomatoBody>
   );
 };

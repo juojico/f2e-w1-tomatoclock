@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 import MainContainer from './containers/MainContainer';
 
 const DarkTheme = {
+  name: 'DarkTheme',
   backgroundColor: '#282c34',
   fontColor: 'white',
   borderColor: 'rgba(255,255,255,0.5)',
@@ -15,6 +15,7 @@ const DarkTheme = {
   secondaryColorDark: '#1992ad'
 };
 const LightTheme = {
+  name: 'LightTheme',
   backgroundColor: '#f3f1ee',
   fontColor: '#1d1f23',
   borderColor: 'rgba(200,129,0,0.1)',
@@ -46,7 +47,7 @@ class App extends React.PureComponent {
   render() {
     return (
       <ThemeProvider theme={this.state.theme}>
-        <MainContainer onChangeTheme={this.onChangeTheme} />
+        <MainContainer onChangeTheme={this.onChangeTheme} theme={this.state.theme.name}/>
       </ThemeProvider>
     );
   }

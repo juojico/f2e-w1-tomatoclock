@@ -13,19 +13,35 @@ const TimerWrapper = styled.div`
   justify-content: center;
   padding: 2em;
   margin-top: -4em;
-  border: 2px solid ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor};
+  border: 2px solid
+    ${props =>
+      props.takeBreak
+        ? props => props.theme.secondaryColor
+        : props => props.theme.primaryColor};
   border-radius: 100%;
-  box-shadow: inset 0 0 20px ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor}, 0 0 40px ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor};
+  box-shadow: inset 0 0 20px
+      ${props =>
+        props.takeBreak
+          ? props => props.theme.secondaryColor
+          : props => props.theme.primaryColor},
+    0 0 40px
+      ${props =>
+        props.takeBreak
+          ? props => props.theme.secondaryColor
+          : props => props.theme.primaryColor};
 `;
 
 const TimerClock = styled.h1`
   position: relative;
   width: 100%;
   font-weight: normal;
-  color: ${props=>props.takeBreak?props=>props.theme.secondaryColor:props=>props.theme.primaryColor};
+  color: ${props =>
+    props.takeBreak
+      ? props => props.theme.secondaryColor
+      : props => props.theme.primaryColor};
   font-size: 5em;
   margin: 0;
-  div>span.big {
+  div > span.big {
     font-size: 1.5em;
   }
 `;
@@ -38,11 +54,15 @@ const BtnBox = styled.div`
 `;
 
 const minutes = seconds => {
-
   const min = Math.floor(seconds / 60);
   const sec = seconds % 60 < 10 ? '0' + (seconds % 60) : seconds % 60;
 
-  return (<div><span className='big'>{min}</span><span>:{sec}</span></div>)
+  return (
+    <div>
+      <span className='big'>{min}</span>
+      <span>:{sec}</span>
+    </div>
+  );
 };
 
 class Timer extends React.PureComponent {
@@ -56,15 +76,24 @@ class Timer extends React.PureComponent {
       takeBreak: false,
       iconTypePlay: 'play',
       iconTypeDelete: 'delete',
-      iconTypeStop: 'stop',
+      iconTypeStop: 'stop'
     };
+  }
+
+  componentDidUpdate() {
+    if (this.state.seconds % 3 === 0) {
+      this.onSay();
+    }
   }
 
   start = () => {
     this.state.seconds > 0
       ? this.setState({ seconds: this.state.seconds - 1, onStart: false })
-      : this.state.takeBreak ? this.backWork() : this.done();
+      : this.state.takeBreak
+      ? this.backWork()
+      : this.done();
   };
+
   done = () => {
     const { onFinish } = this.props;
     this.pause();
@@ -73,16 +102,31 @@ class Timer extends React.PureComponent {
     alert('done!');
   };
 
+  onSay = () => {
+    const { onSay } = this.props;
+    onSay();
+  };
+
   backWork = () => {
-    this.setState({ seconds: 1500, takeBreak: false, onStart: true, iconTypeStop: 'stop' })
+    this.setState({
+      seconds: 1500,
+      takeBreak: false,
+      onStart: true,
+      iconTypeStop: 'stop'
+    });
     this.pause();
     const { onFinish } = this.props;
     onFinish(false);
-  }
+  };
 
   play() {
     let intervalId = setInterval(this.start, 1000);
-    this.setState({ intervalId: intervalId, play: true, onStart: false, iconTypePlay: 'pause' });
+    this.setState({
+      intervalId: intervalId,
+      play: true,
+      onStart: false,
+      iconTypePlay: 'pause'
+    });
   }
 
   pause() {
@@ -94,7 +138,12 @@ class Timer extends React.PureComponent {
   };
 
   takeBreak() {
-    this.setState({ seconds: 300, takeBreak: true, iconTypeStop: 'stop', onStart: true });
+    this.setState({
+      seconds: 300,
+      takeBreak: true,
+      iconTypeStop: 'stop',
+      onStart: true
+    });
     this.play();
   }
 
@@ -103,7 +152,10 @@ class Timer extends React.PureComponent {
   }
 
   onRestartBtnClick() {
-    this.setState({ seconds: this.state.takeBreak ? 300 : 1500, onStart: true });
+    this.setState({
+      seconds: this.state.takeBreak ? 300 : 1500,
+      onStart: true
+    });
     this.pause();
   }
   onSkipBtnClick() {
@@ -113,15 +165,29 @@ class Timer extends React.PureComponent {
   render() {
     return (
       <TimerWrapper takeBreak={this.state.takeBreak}>
-        <TimerClock takeBreak={this.state.takeBreak}>{minutes(this.state.seconds)}</TimerClock>
+        <TimerClock takeBreak={this.state.takeBreak}>
+          {minutes(this.state.seconds)}
+        </TimerClock>
         <BtnBox>
-          <FabButton takeBreak={this.state.takeBreak} onClick={() => this.onRestartBtnClick()} small disable={this.state.onStart}>
+          <FabButton
+            takeBreak={this.state.takeBreak}
+            onClick={() => this.onRestartBtnClick()}
+            small
+            disable={this.state.onStart}
+          >
             <AniIcon type={'restart'} />
           </FabButton>
-          <FabButton takeBreak={this.state.takeBreak} onClick={() => this.onBtnClick()}>
+          <FabButton
+            takeBreak={this.state.takeBreak}
+            onClick={() => this.onBtnClick()}
+          >
             <AniIcon type={this.state.iconTypePlay} />
           </FabButton>
-          <FabButton takeBreak={this.state.takeBreak} onClick={() => this.onSkipBtnClick()} small >
+          <FabButton
+            takeBreak={this.state.takeBreak}
+            onClick={() => this.onSkipBtnClick()}
+            small
+          >
             <AniIcon type={'skip'} />
           </FabButton>
         </BtnBox>
