@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import AniIcon from '../components/Icons';
 import { breakpoint } from '../themes/mixins';
+import RadioInput from '../components/Input/RadioInput';
 import { FabButton, Button } from '../components/Buttons';
 import { Panel, PanelHeader } from '../components/Panel';
 
@@ -9,7 +10,7 @@ const FabButtonTodo = styled(FabButton)`
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 20;
+  z-index: 32;
 `;
 
 const SettingWrapper = styled.div`
@@ -18,8 +19,8 @@ const SettingWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 11;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
 `;
 
 const ButtonBox = styled.div`
@@ -32,12 +33,9 @@ const Setting = styled.div`
   top: 50%;
   left: 50%;
   width: 300px;
-  background-color: rgba(255,255,255,0.3);
-  transform: translate(-50%, -50%); 
-  z-index: 12;
-  ${breakpoint.down('m')`
-    height: 100%;
-  `}
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  z-index: 31;
 `;
 
 class SettingContainer extends React.PureComponent {
@@ -49,28 +47,28 @@ class SettingContainer extends React.PureComponent {
     };
   }
   onOpanClick = () => {
-    this.setState({ open: !this.state.open, type: this.state.open ? 'setting' : 'delete' });
-  }
+    this.setState({
+      open: !this.state.open,
+      type: this.state.open ? 'setting' : 'delete'
+    });
+  };
   render() {
     return (
       <React.Fragment>
         <FabButtonTodo outLine onClick={this.onOpanClick}>
-          <AniIcon type={this.state.type}></AniIcon>
+          <AniIcon type={this.state.type} />
         </FabButtonTodo>
         <Setting hidden={!this.state.open}>
           <Panel>
-            <PanelHeader>SettingContainer</PanelHeader>
             <h3>提醒方式</h3>
-            <input type='radio'></input>
+            <RadioInput name='alertType' value='type1' text='type1'/>
+            <RadioInput name='alertType' value='type2' text='type2'/>
             <h3>主題色彩</h3>
-            <ButtonBox>
-            <Button onClick={()=>this.props.onChangeTheme('LightTheme')}>LightTheme</Button>
-            <Button onClick={()=>this.props.onChangeTheme('DarkTheme')}>DarkTheme</Button>
-            </ButtonBox>
+            <RadioInput name='themeType' value='DarkTheme' text='DarkTheme' onClick={() => this.props.onChangeTheme('DarkTheme')}/>
+            <RadioInput name='themeType' value='LightTheme' text='LightTheme' onClick={() => this.props.onChangeTheme('LightTheme')}/>
           </Panel>
         </Setting>
-        <SettingWrapper hidden={!this.state.open} onClick={this.onOpanClick}>
-        </SettingWrapper>
+        <SettingWrapper hidden={!this.state.open} onClick={this.onOpanClick} />
       </React.Fragment>
     );
   }
