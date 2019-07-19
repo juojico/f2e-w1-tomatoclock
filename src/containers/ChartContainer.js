@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import AniIcon from '../components/Icons';
 import { breakpoint } from '../themes/mixins';
 import { FabButton } from '../components/Buttons';
@@ -89,9 +90,9 @@ const ChartBar = styled.div`
   & div {
     position: absolute;
     top: 100%;
-    left: 0;
-    font-size: 1.5em;
-    width: 100%;
+    left: -50%;
+    font-size: 1em;
+    width: 200%;
   }
 `;
 
@@ -119,10 +120,6 @@ const MOCK_DATA = {
 const today = MOCK_DATA[20190716];
 const totalList = Object.values(MOCK_DATA);
 const weekly = totalList.slice(totalList.length - 7, totalList.length);
-const thisWeekly = Object.keys(MOCK_DATA).slice(
-  totalList.length - 7,
-  totalList.length
-);
 const weeklySum = weekly.reduce((a, b) => a + b);
 const totalSum = totalList.reduce((a, b) => a + b);
 
@@ -167,7 +164,7 @@ class ChartContainer extends React.PureComponent {
               <FabButton outLine onClick={()=>false} small>
                 <AniIcon type='back' />
               </FabButton>
-              <span>20190716</span>
+              <span>{moment().format('YYYY[/]MM[/]DD')}</span>
               <FabButton outLine onClick={()=>false} small>
                 <AniIcon type='play' />
               </FabButton>
@@ -177,7 +174,7 @@ class ChartContainer extends React.PureComponent {
                 return (
                   <ChartBar values={item} key={`weekly${index}`}>
                     <span>{item}</span>
-                    <div>{thisWeekly[index].slice(6, 8)}</div>
+                    <div>{moment().subtract(6-index, 'days').format('MM[/]DD')}</div>
                   </ChartBar>
                 );
               })}
