@@ -63,19 +63,6 @@ const MOCK_DONE = [
   }
 ];
 
-const TOMATOSAYS = [
-  '加油！離目標不遠了',
-  '你喜歡蕃茄醬嗎？',
-  '你覺得我的紅色好看嗎？',
-  '你喜歡番茄雞蛋麵嗎？',
-  '番茄牛肉鍋食譜：牛肋條 500g, 牛番茄 3大顆, 醬油 50cc, 豆瓣醬 20ml, 月桂葉 數片, 八角 2.3顆, 蔥段 2根, 糖 10g',
-  '要吃番茄義大利麵嗎？',
-  '瑪格麗特披薩好吃哦',
-  '晚餐吃義式蕃茄燉牛肉吧～',
-  '我喜歡漢堡裡加番茄',
-  '鮪魚蛋番茄盅：中小型牛番茄 6個, 罐頭鮪魚肉 50g, 蛋 1個, 鹽/白胡椒粉 適量'
-];
-
 const data = localStorage.getItem('todoList')
   ? JSON.parse(localStorage.getItem('todoList'))
   : { todo: [...MOCK_DONE] };
@@ -85,7 +72,8 @@ class MainContainer extends React.PureComponent {
     super(props);
     this.state = {
       takeBreak: false,
-      tomatoSays: '嗨！我是番茄',
+      theme: this.props.theme,
+      tomatoSays: this.props.theme.startSay,
       sayType: false,
       todo: [...data.todo],
       currentItem: { text: '', key: '' },
@@ -100,6 +88,9 @@ class MainContainer extends React.PureComponent {
 
   componentDidUpdate() {
     this.getFirstUndone();
+    if(this.props.theme!==this.state.theme){
+      this.setState({theme:this.props.theme,tomatoSays: this.props.theme.startSay})
+    }
   }
 
   getFirstUndone() {
@@ -227,7 +218,7 @@ class MainContainer extends React.PureComponent {
   };
 
   tomatoSay = () => {
-    const SAYWHAT = TOMATOSAYS[Math.floor(Math.random() * TOMATOSAYS.length)];
+    const SAYWHAT = this.props.theme.says[Math.floor(Math.random() * this.props.theme.says.length)];
     const sayType = Math.random() > 0.5 ? true : false;
     this.setState({ tomatoSays: SAYWHAT, sayType });
   };
@@ -262,7 +253,7 @@ class MainContainer extends React.PureComponent {
         <ChartContainer />
         <SettingContainer
           onChangeTheme={this.props.onChangeTheme}
-          theme={this.props.theme}
+          theme={this.props.theme.name}
         />
       </Container>
     );

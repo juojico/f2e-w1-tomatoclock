@@ -59,7 +59,8 @@ class SettingContainer extends React.PureComponent {
             <RadioInput name='alertType' value='type2' text='type2'/>
             <h3>主題色彩</h3>
             <RadioInput name='themeType' value='DarkTheme' text='DarkTheme' onClick={() => this.props.onChangeTheme('DarkTheme')} checked={this.props.theme==='DarkTheme'?true:false}/>
-            <RadioInput name='themeType' value='LightTheme' text='LightTheme' onClick={() => this.props.onChangeTheme('LightTheme')}/>
+            <RadioInput name='themeType' value='LightTheme' text='LightTheme' onClick={() => this.props.onChangeTheme('LightTheme')} checked={this.props.theme==='LightTheme'?true:false}/>
+            <RadioInput name='themeType' value='GrassBag' text='GrassBag' onClick={() => this.props.onChangeTheme('GrassBag')} checked={this.props.theme==='GrassBag'?true:false}/>
           </Panel>
         </Setting>
         <SettingWrapper hidden={!this.state.open} onClick={this.onOpanClick} />
